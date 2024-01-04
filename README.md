@@ -32,6 +32,8 @@ Ce kata est un challenge d'[architecture hexagonale](https://fr.wikipedia.org/wi
 > - Quand vous êtes prêts à effectuer votre rendu, ouvrez une merge request vers main 
 >
 > ⚠️ L'ouverture de votre merge request déclenchera la revue de votre code !
+> 
+>⚠️ Cette merge request sert de support à la revue de code, **NE LA MERGEZ PAS !**
 >
 
 
@@ -88,7 +90,6 @@ Ce relevé devra faire apparaître :
 
 
 ![archi-hexa](./assets/hexa-schema.png)
-
 
 
  
