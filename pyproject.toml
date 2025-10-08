@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "exalt-bank-account"
+name = "philippe-ivan-mbarga-bank-account-v2-d17eb7b1-1904-4f5b-b6a0-462e21dea456"
 version = "0.1.0"
 description = ""
 authors = ["masterivanic <masterivanic@gmail.com>"]
@@ -15,4 +15,3 @@ mypy = "^1.18.2"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
