@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "exalt-bank-account"
+version = "0.1.0"
+description = ""
+authors = ["masterivanic <masterivanic@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.18.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
