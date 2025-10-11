@@ -1,0 +1,45 @@
+from decimal import Decimal
+from typing import TYPE_CHECKING
+from uuid import UUID
+
+from domain.dtos.bank_account import BankAccountDTO
+from domain.exceptions import BusinessException, NotFound
+from domain.service.bank_account import BankAccountService
+from ports.api.bank_account_use_case import BankAccount
+
+if TYPE_CHECKING:
+    from ports.repositories.i_bank_account import IBankAccountRepository
+
+
+class BankAccountRedrawAndDepositService(BankAccount):
+    def __init__(self, bank_account_repository: "IBankAccountRepository"):
+        self.bank_account_repository = bank_account_repository
+
+    def redraw(self, acount_number: UUID, amount: Decimal) -> "BankAccountDTO":
+        bank_account = self.bank_account_repository.get_by_bank_accound_number(
+            acount_number=acount_number
+        )
+        if not bank_account:
+            raise NotFound(f"Account with number {acount_number} not found")
+
+        if not BankAccountService.can_withdraw(account=bank_account, amount=amount):
+            raise BusinessException("Insufficient funds to make this withdrawal")
+        bank_account.withdraw(amount=amount)
+        self.bank_account_repository.save(bank_account)
+        return BankAccountDTO(
+            entity_id=bank_account.entity_id,
+            account_number=bank_account.account_number,
+            balance=bank_account.balance,
+        )
+
+    def deposit_money(self, acount_number, amount) -> "BankAccountDTO":
+        bank_account = self.bank_account_repository.get_by_bank_accound_number(
+            acount_number=acount_number
+        )
+        bank_account.deposit(amount=amount)
+        self.bank_account_repository.save(bank_account)
+        return BankAccountDTO(
+            entity_id=bank_account.entity_id,
+            account_number=bank_account.account_number,
+            balance=bank_account.balance,
+        )

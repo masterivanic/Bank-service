@@ -5,8 +5,8 @@ from uuid import UUID
 
 import attr
 
-from domain.core.domain_models import Entity, EntityIdentity
-from domain.core.exceptions import BusinessException
+from domain.domain_models import Entity, EntityIdentity
+from domain.exceptions import BusinessException
 
 
 @attr.dataclass(frozen=True, slots=True)
