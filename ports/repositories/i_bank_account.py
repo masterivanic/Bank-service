@@ -12,7 +12,7 @@ class IBankAccountRepository(AbstractRepository):
 
     @classmethod
     @abc.abstractmethod
-    def get_by_bank_accound_number(
+    def get_by_bank_account_number(
         cls, acount_number: BankAccountIdentity
     ) -> BankAccount:
         raise NotImplementedError

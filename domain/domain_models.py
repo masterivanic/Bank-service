@@ -1,7 +1,6 @@
 import abc
 from decimal import Decimal
 from typing import Any, Optional
-from typing import dict as Dict
 from uuid import UUID
 
 import attr
@@ -28,7 +27,7 @@ class ValueObject(abc.ABC):
 
 
 class EntityIdentity(ValueObject, abc.ABC):
-    def serialize(self) -> Dict:
+    def serialize(self) -> dict:
         return attr.asdict(
             self,
             value_serializer=lambda inst, field, value: ValueSerializer(
@@ -38,7 +37,7 @@ class EntityIdentity(ValueObject, abc.ABC):
         )
 
     @classmethod
-    def deserialize(cls, payload: Dict) -> Optional["EntityIdentity"]:
+    def deserialize(cls, payload: dict) -> Optional["EntityIdentity"]:
         if not payload:
             return None
         return cls(**payload)
@@ -89,7 +88,7 @@ class AbstractRepository(abc.ABC):
     @abc.abstractmethod
     def save(cls, entity: Entity) -> None:
         """
-        Function used to persist existing domain RootEntity (aggregate)
+        Function used to persist existing domain entity
         into the database.
         :param entity: Any domain entity.
         """

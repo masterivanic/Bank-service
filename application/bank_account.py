@@ -16,14 +16,18 @@ class BankAccountRedrawAndDepositService(BankAccount):
         self.bank_account_repository = bank_account_repository
 
     def redraw(self, acount_number: UUID, amount: Decimal) -> "BankAccountDTO":
-        bank_account = self.bank_account_repository.get_by_bank_accound_number(
+        bank_account = self.bank_account_repository.get_by_bank_account_number(
             acount_number=acount_number
         )
         if not bank_account:
             raise NotFound(f"Account with number {acount_number} not found")
 
-        if not BankAccountService.can_withdraw(account=bank_account, amount=amount):
+        if amount == 0 or amount < 0:
+            raise ValueError("cannot redraw null or negative amount")
+
+        if not BankAccountService.can_withdraw(bank_account, amount) and amount > 0:
             raise BusinessException("Insufficient funds to make this withdrawal")
+
         bank_account.withdraw(amount=amount)
         self.bank_account_repository.save(bank_account)
         return BankAccountDTO(
@@ -33,10 +37,16 @@ class BankAccountRedrawAndDepositService(BankAccount):
         )
 
     def deposit_money(self, acount_number, amount) -> "BankAccountDTO":
-        bank_account = self.bank_account_repository.get_by_bank_accound_number(
+        bank_account = self.bank_account_repository.get_by_bank_account_number(
             acount_number=acount_number
         )
-        bank_account.deposit(amount=amount)
+        if not bank_account:
+            raise NotFound(f"Account with number {acount_number} not found")
+
+        if amount == 0 or amount < 0:
+            raise ValueError("cannot deposit null or negative amount")
+
+        bank_account.deposit(amount)
         self.bank_account_repository.save(bank_account)
         return BankAccountDTO(
             entity_id=bank_account.entity_id,
