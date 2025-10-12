@@ -59,8 +59,8 @@ class Entity(abc.ABC):
 
 class DomainService(abc.ABC):
     """
-    A service used by the domain to return informations from database.
-    These informations can not be Domain object.
+    A service used by the domain to return information from database.
+    These information can not be Domain object.
     """
 
     pass

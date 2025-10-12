@@ -13,6 +13,14 @@ class NotFound(Exception):
         super().__init__(**kwargs)
 
 
+class OverdraftLimitExceededException(BusinessException):
+    pass
+
+
+class InsufficientFundsException(BusinessException):
+    pass
+
+
 class InfrastructureException(Exception):
     def __init__(self, message: str, **kwargs):
         self.message = message
