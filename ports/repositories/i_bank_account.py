@@ -32,7 +32,7 @@ class IBankAccountRepository(AbstractRepository):
 
     @classmethod
     @abc.abstractmethod
-    def update_overdraft_authorization(
+    def update_overdraft_amount(
         cls, acount_number: UUID, overdraft_amount: Decimal
     ) -> None:
         pass

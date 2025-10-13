@@ -15,7 +15,7 @@ class BankAccountOverdraft(DomainService):
         """Withdraw money from account considering overdraft authorization"""
         raise NotImplementedError
 
-    def set_overdraft_authorization(
+    def set_overdraft_amount(
         self, acount_number: UUID, overdraft_amount: Decimal
     ) -> "BankAccountDTO":
         """Set overdraft authorization for an account"""

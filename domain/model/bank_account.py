@@ -19,7 +19,7 @@ class BankAccount(Entity):
     entity_id: "BankAccountIdentity"
     account_number: UUID
     balance: Decimal
-    overdraft_authorization: Decimal = Decimal("0.00")
+    overdraft_amount: Decimal = Decimal("0.00")
     is_allow_overdraft: bool = True
     is_active: Optional[bool] = True
     created_at: Optional[datetime.datetime] = None
@@ -54,17 +54,17 @@ class BankAccount(Entity):
     @property
     def available_balance(self) -> Decimal:
         if self.is_allow_overdraft:
-            return self.balance + self.overdraft_authorization
+            return self.balance + self.overdraft_amount
         return self.balance
 
     def has_sufficient_funds(self, amount: Decimal) -> bool:
         if self.is_allow_overdraft:
-            available_balance = self.balance + self.overdraft_authorization
+            available_balance = self.balance + self.overdraft_amount
             return available_balance >= amount
         return self.balance >= amount
 
-    def set_overdraft_authorization(self, amount: Decimal) -> None:
+    def set_overdraft_amount(self, amount: Decimal) -> None:
         """Set the overdraft authorization amount"""
         if amount < 0:
             raise ValueError("Overdraft authorization cannot be negative")
-        self.overdraft_authorization = amount
+        self.overdraft_amount = amount

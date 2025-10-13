@@ -28,7 +28,7 @@ class BankAccountService(DomainService):
             raise ValueError("Withdrawal amount must be positive")
 
         if not account.has_sufficient_funds(amount):
-            if account.overdraft_authorization > 0:
+            if account.overdraft_amount > 0:
                 raise OverdraftLimitExceededException(
                     f"Withdrawal of {amount} exceeds overdraft limit."
                 )
