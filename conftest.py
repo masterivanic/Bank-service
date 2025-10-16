@@ -5,9 +5,9 @@ from uuid import UUID, uuid4
 
 import pytest
 
-from application.bank_account import BankAccountRedrawAndDepositService
 from domain.model.bank_account import AccountIdentity, BankAccount
 from ports.repositories.i_bank_account import IBankAccountRepository
+from service.bank_account import BankAccountRedrawAndDepositService
 
 
 @pytest.fixture()

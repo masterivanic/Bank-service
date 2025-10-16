@@ -19,7 +19,7 @@ class BookletAccountService(BookletAccount):
         self,
         booklet_account_repository: "IBookletAccountRepository",
         booklet_account_service: "BookletAcountService",
-    ):
+    ) -> None:
         self._booklet_account_repository = booklet_account_repository
         self._booklet_account_service = booklet_account_service
 

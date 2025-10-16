@@ -7,7 +7,7 @@ from domain.domain_models import (
     Entity,
     EntityIdentity,
 )
-from domain.model.acount_statement import Transaction, TransactionIdentity
+from domain.model.account_statement import Transaction, TransactionIdentity
 
 
 class ITransactionRepository(AbstractRepository):
@@ -20,7 +20,7 @@ class ITransactionRepository(AbstractRepository):
 
     @classmethod
     @abc.abstractmethod
-    def get_by_account_id(cls, account_id: AccountIdentity) -> Transaction:
+    def get_by_account_id(cls, account_id: AccountIdentity) -> list[Transaction]:
         raise NotImplementedError
 
     @classmethod

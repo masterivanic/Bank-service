@@ -7,7 +7,7 @@ from domain.domain_models import (
     Entity,
     EntityIdentity,
 )
-from domain.model.acount_statement import MonthlyStatement, MonthlyStatementIdentity
+from domain.model.account_statement import MonthlyStatement, MonthlyStatementIdentity
 
 
 class IAccountStatementRepository(AbstractRepository):

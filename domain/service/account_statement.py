@@ -4,7 +4,7 @@ from decimal import Decimal
 from typing import Union
 
 from domain.domain_models import DomainService
-from domain.model.acount_statement import (
+from domain.model.account_statement import (
     AccountType,
     MonthlyStatement,
     MonthlyStatementIdentity,
