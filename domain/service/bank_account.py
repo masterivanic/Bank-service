@@ -1,7 +1,7 @@
 import uuid
 from decimal import Decimal
 
-from domain.domain_models import DomainService
+from domain.domain_models import AccountIdentity, DomainService
 from domain.exceptions import (
     InsufficientFundsException,
     OverdraftLimitExceededException,
@@ -13,7 +13,9 @@ class BankAccountService(DomainService):
     @classmethod
     def create_account(cls, initial_balance: Decimal) -> "BankAccount":
         return BankAccount(
-            entity_id=uuid.uuid4(), account_number=uuid.uuid4(), balance=initial_balance
+            entity_id=AccountIdentity(uuid.uuid4()),
+            account_number=uuid.uuid4(),
+            balance=initial_balance,
         )
 
     @classmethod
