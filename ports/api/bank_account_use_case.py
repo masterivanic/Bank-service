@@ -9,10 +9,10 @@ if TYPE_CHECKING:
 
 
 class BankAccount(DomainService):
-    def redraw(self, acount_number: UUID, amount: Decimal) -> "BankAccountDTO":
+    def redraw(self, account_number: UUID, amount: Decimal) -> "BankAccountDTO":
         """action to redraw money from bank account"""
         raise NotImplementedError
 
-    def deposit_money(self, acount_number: UUID, amount: Decimal) -> "BankAccountDTO":
+    def deposit_money(self, account_number: UUID, amount: Decimal) -> "BankAccountDTO":
         """action to put money in bank account"""
         raise NotImplementedError

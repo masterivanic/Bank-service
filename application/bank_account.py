@@ -17,12 +17,12 @@ class BankAccountRedrawAndDepositService(BankAccount):
     def __init__(self, bank_account_repository: "IBankAccountRepository"):
         self._bank_account_repository = bank_account_repository
 
-    def redraw(self, acount_number: UUID, amount: Decimal) -> "BankAccountDTO":
+    def redraw(self, account_number: UUID, amount: Decimal) -> "BankAccountDTO":
         bank_account = self._bank_account_repository.get_by_bank_account_number(
-            acount_number=acount_number
+            account_number=account_number
         )
         if not bank_account:
-            raise NotFound(f"Account with number {acount_number} not found")
+            raise NotFound(f"Account with number {account_number} not found")
 
         if amount == 0 or amount < 0:
             raise ValueError("cannot redraw null or negative amount")
@@ -38,12 +38,12 @@ class BankAccountRedrawAndDepositService(BankAccount):
             balance=bank_account.balance,
         )
 
-    def deposit_money(self, acount_number, amount) -> "BankAccountDTO":
+    def deposit_money(self, account_number, amount) -> "BankAccountDTO":
         bank_account = self._bank_account_repository.get_by_bank_account_number(
-            acount_number=acount_number
+            account_number=account_number
         )
         if not bank_account:
-            raise NotFound(f"Account with number {acount_number} not found")
+            raise NotFound(f"Account with number {account_number} not found")
 
         if amount == 0 or amount < 0:
             raise ValueError("cannot deposit null or negative amount")

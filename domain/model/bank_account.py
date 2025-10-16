@@ -6,7 +6,6 @@ from uuid import UUID
 import attr
 
 from domain.domain_models import Entity, EntityIdentity
-from domain.exceptions import BusinessException
 
 
 @attr.dataclass(frozen=True, slots=True)
@@ -18,7 +17,7 @@ class BankAccountIdentity(EntityIdentity):
 class BankAccount(Entity):
     entity_id: "BankAccountIdentity"
     account_number: UUID
-    balance: Decimal
+    balance: Decimal = Decimal("0.00")
     overdraft_amount: Decimal = Decimal("0.00")
     is_allow_overdraft: bool = True
     is_active: Optional[bool] = True
@@ -37,10 +36,6 @@ class BankAccount(Entity):
     def withdraw(self, amount: Decimal) -> None:
         if amount <= 0:
             raise ValueError("The withdrawal amount must be positive")
-
-        if amount > self.balance:
-            raise BusinessException("Insufficient funds to make this withdrawal")
-
         self.balance -= amount
 
     def is_in_overdraft(self) -> bool:

@@ -24,13 +24,13 @@ class BankAccountOverdraftService(BankAccountOverdraft):
         self._bank_account_service = bank_account_service
 
     def withdraw_from_account(
-        self, acount_number: UUID, amount: Decimal
+        self, account_number: UUID, amount: Decimal
     ) -> "BankAccountDTO":
         bank_account = self._bank_account_repository.get_by_bank_account_number(
-            acount_number=acount_number
+            account_number=account_number
         )
         if not bank_account:
-            raise NotFound(f"Account with number {acount_number} not found")
+            raise NotFound(f"Account with number {account_number} not found")
 
         if amount == 0 or amount < 0:
             raise ValueError("cannot redraw null or negative amount")
@@ -46,16 +46,16 @@ class BankAccountOverdraftService(BankAccountOverdraft):
         )
 
     def set_overdraft_amount(
-        self, acount_number: UUID, overdraft_amount: Decimal
+        self, account_number: UUID, overdraft_amount: Decimal
     ) -> "BankAccountDTO":
         bank_account = self._bank_account_repository.get_by_bank_account_number(
-            acount_number=acount_number
+            account_number=account_number
         )
         if not bank_account:
-            raise NotFound(f"Account with number {acount_number} not found")
+            raise NotFound(f"Account with number {account_number} not found")
 
-        if overdraft_amount == 0 or overdraft_amount < 0:
-            raise ValueError("cannot set overdraft  with null or negative amount")
+        if overdraft_amount < 0:
+            raise ValueError("cannot set overdraft with null or negative amount")
 
         bank_account.set_overdraft_amount(overdraft_amount)
         self._bank_account_repository.save(bank_account)
@@ -66,10 +66,10 @@ class BankAccountOverdraftService(BankAccountOverdraft):
             overdraft_amount=bank_account.overdraft_amount,
         )
 
-    def get_available_balance(self, acount_number: UUID) -> Decimal:
+    def get_available_balance(self, account_number: UUID) -> Decimal:
         bank_account = self._bank_account_repository.get_by_bank_account_number(
-            acount_number=acount_number
+            account_number=account_number
         )
         if not bank_account:
-            raise NotFound(f"Account with number {acount_number} not found")
+            raise NotFound(f"Account with number {account_number} not found")
         return bank_account.available_balance

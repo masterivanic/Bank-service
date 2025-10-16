@@ -1,5 +1,6 @@
+import datetime
 from decimal import Decimal
-from unittest.mock import Mock, create_autospec
+from unittest.mock import Mock, PropertyMock, create_autospec
 from uuid import UUID, uuid4
 
 import pytest
@@ -37,4 +38,43 @@ def mock_bank_account(sample_entity_id, sample_account_number):
     account.balance = Decimal("1000.00")
     account.withdraw = Mock()
     account.deposit = Mock()
+    return account
+
+
+@pytest.fixture()
+def mock_bank_account_overdraft(sample_entity_id, sample_account_number):
+    account = create_autospec(BankAccount)
+    account.entity_id = sample_entity_id
+    account.account_number = sample_account_number
+    account.balance = Decimal("1000.00")
+    account.overdraft_amount = Decimal("500.00")
+    account.is_allow_overdraft = True
+    account.is_active = True
+    account.created_at = datetime.datetime.now()
+    account.updated_at = datetime.datetime.now()
+
+    def has_sufficient_funds_side_effect(amount):
+        if account.is_allow_overdraft:
+            available_balance = account.balance + account.overdraft_amount
+            return available_balance >= amount
+        return account.balance >= amount
+
+    account.has_sufficient_funds = Mock(side_effect=has_sufficient_funds_side_effect)
+
+    @property
+    def available_balance_property(self):
+        if self.is_allow_overdraft:
+            return self.balance + self.overdraft_amount
+        return self.balance
+
+    available_balance_mock = PropertyMock()
+    available_balance_mock.return_value = Decimal("1500.00")
+    type(account).available_balance = available_balance_mock
+
+    account.withdraw = Mock()
+    account.deposit = Mock()
+    account.set_overdraft_amount = Mock()
+    account.is_in_overdraft = Mock(return_value=False)
+    account.get_overdraft_used = Mock(return_value=Decimal("0.00"))
+
     return account

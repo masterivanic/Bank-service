@@ -14,7 +14,7 @@ class IBankAccountRepository(AbstractRepository):
 
     @classmethod
     @abc.abstractmethod
-    def get_by_bank_account_number(cls, acount_number: UUID) -> BankAccount:
+    def get_by_bank_account_number(cls, account_number: UUID) -> BankAccount:
         raise NotImplementedError
 
     @classmethod
@@ -33,6 +33,6 @@ class IBankAccountRepository(AbstractRepository):
     @classmethod
     @abc.abstractmethod
     def update_overdraft_amount(
-        cls, acount_number: UUID, overdraft_amount: Decimal
+        cls, account_number: UUID, overdraft_amount: Decimal
     ) -> None:
-        pass
+        raise NotImplementedError

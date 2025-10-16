@@ -30,7 +30,7 @@ class TestBankAccountRedrawAndDepositService:
             result = bank_account_service.redraw(sample_account_number, amount)
 
             mock_bank_account_repository.get_by_bank_account_number.assert_called_once_with(
-                acount_number=sample_account_number
+                account_number=sample_account_number
             )
             mock_bank_account.withdraw.assert_called_once_with(amount=amount)
             mock_bank_account_repository.save.assert_called_once_with(mock_bank_account)
@@ -57,7 +57,7 @@ class TestBankAccountRedrawAndDepositService:
                 == ex.value.message
             )
             mock_bank_account_repository.get_by_bank_account_number.assert_called_once_with(
-                acount_number=sample_account_number
+                account_number=sample_account_number
             )
             mock_bank_account_repository.save.assert_not_called()
 
@@ -86,7 +86,7 @@ class TestBankAccountRedrawAndDepositService:
                 exc_info.value.message == "Insufficient funds to make this withdrawal"
             )
             mock_bank_account_repository.get_by_bank_account_number.assert_called_once_with(
-                acount_number=sample_account_number
+                account_number=sample_account_number
             )
             mock_bank_account.withdraw.assert_not_called()
             mock_bank_account_repository.save.assert_not_called()
@@ -146,7 +146,7 @@ class TestBankAccountRedrawAndDepositService:
             result = bank_account_service.deposit_money(sample_account_number, amount)
 
             mock_bank_account_repository.get_by_bank_account_number.assert_called_once_with(
-                acount_number=sample_account_number
+                account_number=sample_account_number
             )
             mock_bank_account_repository.save.assert_called_once_with(real_bank_account)
 

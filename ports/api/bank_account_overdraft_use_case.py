@@ -10,17 +10,17 @@ if TYPE_CHECKING:
 
 class BankAccountOverdraft(DomainService):
     def withdraw_from_account(
-        self, acount_number: UUID, amount: Decimal
+        self, account_number: UUID, amount: Decimal
     ) -> "BankAccountDTO":
         """Withdraw money from account considering overdraft authorization"""
         raise NotImplementedError
 
     def set_overdraft_amount(
-        self, acount_number: UUID, overdraft_amount: Decimal
+        self, account_number: UUID, overdraft_amount: Decimal
     ) -> "BankAccountDTO":
         """Set overdraft authorization for an account"""
         raise NotImplementedError
 
-    def get_available_balance(self, acount_number: UUID) -> Decimal:
+    def get_available_balance(self, account_number: UUID) -> Decimal:
         """Get available balance including overdraft authorization"""
         pass
