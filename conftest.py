@@ -6,7 +6,7 @@ from uuid import UUID, uuid4
 import pytest
 
 from application.bank_account import BankAccountRedrawAndDepositService
-from domain.model.bank_account import BankAccount, BankAccountIdentity
+from domain.model.bank_account import AccountIdentity, BankAccount
 from ports.repositories.i_bank_account import IBankAccountRepository
 
 
@@ -27,7 +27,7 @@ def sample_account_number():
 
 @pytest.fixture()
 def sample_entity_id():
-    return BankAccountIdentity(uuid4)
+    return AccountIdentity(uuid4)
 
 
 @pytest.fixture()

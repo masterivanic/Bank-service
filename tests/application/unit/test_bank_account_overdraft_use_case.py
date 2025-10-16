@@ -7,7 +7,7 @@ import pytest
 from application.bank_acount_overdraft import BankAccountOverdraftService
 from domain.dtos.bank_account import BankAccountDTO
 from domain.exceptions import NotFound, OverdraftLimitExceededException
-from domain.model.bank_account import BankAccount, BankAccountIdentity
+from domain.model.bank_account import AccountIdentity, BankAccount
 from domain.service.bank_account import BankAccountService
 
 
@@ -66,7 +66,7 @@ class TestBankAccountOverdraftService:
         mock_bank_account_repository,
     ):
         account = BankAccount(
-            entity_id=BankAccountIdentity(uuid=uuid4()),
+            entity_id=AccountIdentity(uuid=uuid4()),
             account_number=uuid4(),
             balance=Decimal("1000.00"),
             overdraft_amount=Decimal("500.00"),

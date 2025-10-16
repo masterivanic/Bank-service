@@ -5,28 +5,19 @@ from uuid import UUID
 
 import attr
 
-from domain.domain_models import Entity, EntityIdentity
-
-
-@attr.dataclass(frozen=True, slots=True)
-class BankAccountIdentity(EntityIdentity):
-    uuid: UUID
+from domain.domain_models import Account, AccountIdentity
 
 
 @attr.dataclass(slots=True, hash=False, eq=False)
-class BankAccount(Entity):
-    entity_id: "BankAccountIdentity"
+class BankAccount(Account):
+    entity_id: "AccountIdentity"
     account_number: UUID
     balance: Decimal = Decimal("0.00")
     overdraft_amount: Decimal = Decimal("0.00")
     is_allow_overdraft: bool = True
     is_active: Optional[bool] = True
-    created_at: Optional[datetime.datetime] = None
-    updated_at: Optional[datetime.datetime] = None
-
-    def __attrs_post_init__(self):
-        if self.balance < 0:
-            raise ValueError("The balance cannot be negative")
+    created_at: Optional[datetime.datetime] = datetime.datetime.now()
+    updated_at: Optional[datetime.datetime] = datetime.datetime.now()
 
     def deposit(self, amount: Decimal) -> None:
         if amount <= 0:

@@ -1,4 +1,5 @@
 import abc
+import datetime
 from decimal import Decimal
 from typing import Any, Optional
 from uuid import UUID
@@ -92,4 +93,48 @@ class AbstractRepository(abc.ABC):
         into the database.
         :param entity: Any domain entity.
         """
+        pass
+
+
+@attr.dataclass(frozen=True, slots=True)
+class AccountIdentity(EntityIdentity):
+    uuid: UUID
+
+
+class Account(Entity):
+    entity_id: AccountIdentity
+    account_number: UUID
+    balance: Decimal
+    is_active: bool
+    created_at: datetime.datetime
+    updated_at: datetime.datetime
+
+    def __attrs_post_init__(self):
+        """post init before instantiate"""
+        if self.balance < 0:
+            raise ValueError("The balance cannot be negative")
+        self._validate_initial_state()
+
+    def _validate_initial_state(self):
+        pass
+
+    @abc.abstractmethod
+    def deposit(self, amount: Decimal) -> None:
+        """deposit money of an account"""
+        pass
+
+    @abc.abstractmethod
+    def withdraw(self, amount: Decimal) -> None:
+        """redraw money of an account"""
+        pass
+
+    @abc.abstractmethod
+    def has_sufficient_funds(self, amount: Decimal) -> bool:
+        """check if account has enough cash"""
+        pass
+
+    @property
+    @abc.abstractmethod
+    def available_balance(self) -> Decimal:
+        """Retrieve current amount in account"""
         pass

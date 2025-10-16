@@ -21,6 +21,10 @@ class InsufficientFundsException(BusinessException):
     pass
 
 
+class DepositLimitExceededException(BusinessException):
+    pass
+
+
 class InfrastructureException(Exception):
     def __init__(self, message: str, **kwargs):
         self.message = message
