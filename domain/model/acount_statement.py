@@ -4,7 +4,7 @@ from uuid import UUID
 
 import attr
 
-from domain.domain_models import Entity, EntityIdentity
+from domain.domain_models import AccountIdentity, Entity, EntityIdentity
 
 
 @attr.dataclass(frozen=True, slots=True)
@@ -26,7 +26,7 @@ class AccountType:
 @attr.dataclass(slots=True, hash=False, eq=False)
 class Transaction(Entity):
     entity_id: "TransactionIdentity"
-    account_id: UUID
+    account_id: "AccountIdentity"
     transaction_type: str  # "DEPOSIT", "WITHDRAWAL"
     amount: Decimal
     transation_date: datetime.datetime
@@ -35,6 +35,10 @@ class Transaction(Entity):
 
 @attr.dataclass(slots=True, hash=False, eq=False)
 class MonthlyStatement(Entity):
+    """
+    monthly account statement
+    """
+
     entity_id: "MonthlyStatementIdentity"
     account_id: UUID
     account_type: str
