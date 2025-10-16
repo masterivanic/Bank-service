@@ -36,7 +36,7 @@ class TestBankAccountRedrawAndDepositService:
             mock_bank_account_repository.save.assert_called_once_with(mock_bank_account)
 
             assert isinstance(result, BankAccountDTO)
-            assert result.entity_id == mock_bank_account.entity_id
+            assert result.entity_id == mock_bank_account.entity_id.uuid
             assert result.account_number == mock_bank_account.account_number
             assert result.balance == mock_bank_account.balance
 
@@ -151,7 +151,7 @@ class TestBankAccountRedrawAndDepositService:
             mock_bank_account_repository.save.assert_called_once_with(real_bank_account)
 
             assert isinstance(result, BankAccountDTO)
-            assert result.entity_id == real_bank_account.entity_id
+            assert result.entity_id == real_bank_account.entity_id.uuid
             assert result.account_number == real_bank_account.account_number
             assert result.balance == real_bank_account.balance == Decimal("1500.00")
 

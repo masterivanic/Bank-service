@@ -23,4 +23,4 @@ class BankAccountOverdraft(DomainService):
 
     def get_available_balance(self, account_number: UUID) -> Decimal:
         """Get available balance including overdraft authorization"""
-        pass
+        raise NotImplementedError

@@ -24,9 +24,19 @@ repos:
 
 - repo: local
   hooks:
+  - id: mypy
+    name: mypy
+    entry: bash -c "cd $(git rev-parse --show-toplevel) && mypy --explicit-package-bases ."
+    require_serial: true
+    language: python
+    types: [ python ]
+
+- repo: local
+  hooks:
   - id: pytest-check
     name: pytest-check
     entry: pytest
     language: system
     pass_filenames: false
     always_run: true
+

@@ -19,7 +19,7 @@ class BookletAccountDTO(DTO):
     @classmethod
     def from_entity(cls, account: BookletAccount) -> "BookletAccountDTO":
         return cls(
-            entity_id=account.entity_id,
+            entity_id=account.entity_id.uuid,
             account_number=account.account_number,
             balance=account.balance,
             deposit_limit=account.deposit_limit,

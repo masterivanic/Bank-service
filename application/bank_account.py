@@ -33,12 +33,12 @@ class BankAccountRedrawAndDepositService(BankAccount):
         bank_account.withdraw(amount=amount)
         self._bank_account_repository.save(bank_account)
         return BankAccountDTO(
-            entity_id=bank_account.entity_id,
+            entity_id=bank_account.entity_id.uuid,
             account_number=bank_account.account_number,
             balance=bank_account.balance,
         )
 
-    def deposit_money(self, account_number, amount) -> "BankAccountDTO":
+    def deposit_money(self, account_number: UUID, amount: Decimal) -> "BankAccountDTO":
         bank_account = self._bank_account_repository.get_by_bank_account_number(
             account_number=account_number
         )
@@ -51,7 +51,7 @@ class BankAccountRedrawAndDepositService(BankAccount):
         bank_account.deposit(amount)
         self._bank_account_repository.save(bank_account)
         return BankAccountDTO(
-            entity_id=bank_account.entity_id,
+            entity_id=bank_account.entity_id.uuid,
             account_number=bank_account.account_number,
             balance=bank_account.balance,
         )

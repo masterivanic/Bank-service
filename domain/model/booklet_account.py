@@ -1,6 +1,5 @@
 import datetime
 from decimal import Decimal
-from typing import Optional
 from uuid import UUID
 
 import attr
@@ -19,14 +18,14 @@ class BookletAccount(Account):
     account_number: UUID
     balance: Decimal = Decimal("0.00")
     deposit_limit: Decimal = Decimal("22950.00")
-    is_active: Optional[bool] = True
-    created_at: Optional[datetime.datetime] = datetime.datetime.now()
-    updated_at: Optional[datetime.datetime] = datetime.datetime.now()
+    is_active: bool = True
+    created_at: datetime.datetime = datetime.datetime.now()
+    updated_at: datetime.datetime = datetime.datetime.now()
 
-    def __attrs_post_init__(self):
+    def __attrs_post_init__(self) -> None:
         super().__attrs_post_init__()
 
-    def _validate_initial_state(self):
+    def _validate_initial_state(self) -> None:
         if self.balance > self.deposit_limit:
             raise ValueError("Balance cannot exceed deposit limit")
 

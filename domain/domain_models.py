@@ -11,7 +11,7 @@ import attr
 class ValueSerializer:
     value: Any
 
-    def serialize(self):
+    def serialize(self) -> Any:
         if isinstance(self.value, (Decimal, UUID)):
             return str(self.value)
         if isinstance(self.value, EntityIdentity):
@@ -20,41 +20,37 @@ class ValueSerializer:
 
 
 class ValueObject(abc.ABC):
-    def __eq__(self, other):
+    def __eq__(self, other: object) -> bool:
         raise NotImplementedError
 
-    def __hash__(self):
+    def __hash__(self) -> int:
         raise NotImplementedError
 
 
 class EntityIdentity(ValueObject, abc.ABC):
-    def serialize(self) -> dict:
-        return attr.asdict(
-            self,
-            value_serializer=lambda inst, field, value: ValueSerializer(
-                value
-            ).serialize(),
-            recurse=True,
-        )
+    def serialize(self) -> dict[str, Any]:
+        raise NotImplementedError("Subclasses must implement serialize()")
 
     @classmethod
-    def deserialize(cls, payload: dict) -> Optional["EntityIdentity"]:
+    def deserialize(cls, payload: dict[str, Any]) -> Optional["EntityIdentity"]:
         if not payload:
             return None
         return cls(**payload)
 
 
 class Entity(abc.ABC):
-    def __init__(self, *args, entity_id: EntityIdentity = None, **kwargs):
+    def __init__(
+        self, *args: Any, entity_id: Optional[EntityIdentity] = None, **kwargs: Any
+    ) -> None:
         self.entity_id = entity_id
         super().__init__(*args, **kwargs)
 
-    def __eq__(self, other):
+    def __eq__(self, other: object) -> bool:
         if isinstance(other, self.__class__):
             return self.entity_id == other.entity_id
         return False
 
-    def __hash__(self):
+    def __hash__(self) -> int:
         return hash(self.entity_id)
 
 
@@ -79,7 +75,7 @@ class AbstractRepository(abc.ABC):
 
     @classmethod
     @abc.abstractmethod
-    def delete(cls, entity_id: EntityIdentity, **kwargs) -> None:
+    def delete(cls, entity_id: EntityIdentity, **kwargs: Any) -> None:
         """
         Function used to delete a entity via it's entity identity.
         """
@@ -109,13 +105,13 @@ class Account(Entity):
     created_at: datetime.datetime
     updated_at: datetime.datetime
 
-    def __attrs_post_init__(self):
+    def __attrs_post_init__(self) -> None:
         """post init before instantiate"""
         if self.balance < 0:
             raise ValueError("The balance cannot be negative")
         self._validate_initial_state()
 
-    def _validate_initial_state(self):
+    def _validate_initial_state(self) -> None:
         pass
 
     @abc.abstractmethod

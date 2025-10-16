@@ -1,14 +1,14 @@
 class BusinessException(Exception):
-    def __init__(self, message: str, **kwargs):
+    def __init__(self, message: str, **kwargs: object) -> None:
         self.message = message
         super().__init__(**kwargs)
 
-    def __reduce__(self):
+    def __reduce__(self) -> tuple[type["BusinessException"], tuple[str]]:
         return BusinessException, (self.message,)
 
 
 class NotFound(Exception):
-    def __init__(self, message: str, **kwargs):
+    def __init__(self, message: str, **kwargs: object) -> None:
         self.message = message
         super().__init__(**kwargs)
 
@@ -26,6 +26,6 @@ class DepositLimitExceededException(BusinessException):
 
 
 class InfrastructureException(Exception):
-    def __init__(self, message: str, **kwargs):
+    def __init__(self, message: str, **kwargs: object) -> None:
         self.message = message
         super().__init__(**kwargs)

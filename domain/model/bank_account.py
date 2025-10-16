@@ -1,6 +1,5 @@
 import datetime
 from decimal import Decimal
-from typing import Optional
 from uuid import UUID
 
 import attr
@@ -15,9 +14,9 @@ class BankAccount(Account):
     balance: Decimal = Decimal("0.00")
     overdraft_amount: Decimal = Decimal("0.00")
     is_allow_overdraft: bool = True
-    is_active: Optional[bool] = True
-    created_at: Optional[datetime.datetime] = datetime.datetime.now()
-    updated_at: Optional[datetime.datetime] = datetime.datetime.now()
+    is_active: bool = True
+    created_at: datetime.datetime = datetime.datetime.now()
+    updated_at: datetime.datetime = datetime.datetime.now()
 
     def deposit(self, amount: Decimal) -> None:
         if amount <= 0:

@@ -40,7 +40,7 @@ class BankAccountOverdraftService(BankAccountOverdraft):
         bank_account.withdraw(amount=amount)
         self._bank_account_repository.save(bank_account)
         return BankAccountDTO(
-            entity_id=bank_account.entity_id,
+            entity_id=bank_account.entity_id.uuid,
             account_number=bank_account.account_number,
             balance=bank_account.balance,
         )
@@ -60,7 +60,7 @@ class BankAccountOverdraftService(BankAccountOverdraft):
         bank_account.set_overdraft_amount(overdraft_amount)
         self._bank_account_repository.save(bank_account)
         return BankAccountDTO(
-            entity_id=bank_account.entity_id,
+            entity_id=bank_account.entity_id.uuid,
             account_number=bank_account.account_number,
             balance=bank_account.balance,
             overdraft_amount=bank_account.overdraft_amount,
