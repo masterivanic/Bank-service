@@ -32,7 +32,7 @@ class BankAccountOverdraftService(BankAccountOverdraft):
         if not bank_account:
             raise NotFound(f"Account with number {account_number} not found")
 
-        if amount == 0 or amount < 0:
+        if amount <= 0:
             raise ValueError("cannot redraw null or negative amount")
         self._bank_account_service.authorize_withdrawal(
             account=bank_account, amount=amount

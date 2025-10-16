@@ -17,7 +17,7 @@ class BookletAccountDTO(DTO):
     remaining_deposit_capacity: Decimal
 
     @classmethod
-    def from_entity(cls, account: BookletAccount) -> "BookletAccount":
+    def from_entity(cls, account: BookletAccount) -> "BookletAccountDTO":
         return cls(
             entity_id=account.entity_id,
             account_number=account.account_number,

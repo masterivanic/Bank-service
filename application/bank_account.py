@@ -24,7 +24,7 @@ class BankAccountRedrawAndDepositService(BankAccount):
         if not bank_account:
             raise NotFound(f"Account with number {account_number} not found")
 
-        if amount == 0 or amount < 0:
+        if amount <= 0:
             raise ValueError("cannot redraw null or negative amount")
 
         if not BankAccountService.can_withdraw(bank_account, amount) and amount > 0:
@@ -45,7 +45,7 @@ class BankAccountRedrawAndDepositService(BankAccount):
         if not bank_account:
             raise NotFound(f"Account with number {account_number} not found")
 
-        if amount == 0 or amount < 0:
+        if amount <= 0:
             raise ValueError("cannot deposit null or negative amount")
 
         bank_account.deposit(amount)
