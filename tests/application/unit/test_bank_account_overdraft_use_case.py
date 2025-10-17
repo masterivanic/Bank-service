@@ -4,11 +4,16 @@ from uuid import uuid4
 
 import pytest
 
-from src.domain.dtos.bank_account import BankAccountDTO
-from src.domain.exceptions import NotFound, OverdraftLimitExceededException
-from src.domain.model.bank_account import AccountIdentity, BankAccount
-from src.domain.service.bank_account import BankAccountService
-from src.service.bank_acount_overdraft import BankAccountOverdraftService
+from bank_app.application.domain.dtos.bank_account import BankAccountDTO
+from bank_app.application.domain.exceptions import (
+    NotFound,
+    OverdraftLimitExceededException,
+)
+from bank_app.application.domain.model.bank_account import AccountIdentity, BankAccount
+from bank_app.application.domain.service.bank_account import BankAccountService
+from bank_app.application.service.bank_acount_overdraft import (
+    BankAccountOverdraftService,
+)
 
 
 class TestBankAccountOverdraftService:

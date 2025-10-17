@@ -2,9 +2,9 @@ from decimal import Decimal
 
 import pytest
 
-from src.domain.dtos.bank_account import BankAccountDTO
-from src.domain.exceptions import BusinessException, NotFound
-from src.domain.model.bank_account import BankAccount
+from bank_app.application.domain.dtos.bank_account import BankAccountDTO
+from bank_app.application.domain.exceptions import BusinessException, NotFound
+from bank_app.application.domain.model.bank_account import BankAccount
 
 
 class TestBankAccountRedrawAndDepositService:
@@ -24,7 +24,7 @@ class TestBankAccountRedrawAndDepositService:
             mock_bank_account_repository.save.return_value = None
 
             monkeypatch.setattr(
-                "domain.service.bank_account.BankAccountService.can_withdraw",
+                "bank_app.application.domain.service.bank_account.BankAccountService.can_withdraw",
                 lambda account, withdrawal_amount: True,
             )
             result = bank_account_service.redraw(sample_account_number, amount)
@@ -75,7 +75,7 @@ class TestBankAccountRedrawAndDepositService:
             )
 
             monkeypatch.setattr(
-                "src.domain.service.bank_account.BankAccountService.can_withdraw",
+                "bank_app.application.domain.service.bank_account.BankAccountService.can_withdraw",
                 lambda account, withdrawal_amount: False,
             )
 

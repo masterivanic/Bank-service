@@ -4,12 +4,14 @@ from uuid import uuid4
 
 import pytest
 
-from src.domain.dtos.booklet_account import BookletAccountDTO
-from src.domain.exceptions import NotFound
-from src.domain.model.booklet_account import BookletAccount
-from src.domain.service import booklet_account
-from src.ports.repositories.i_booklet_account import IBookletAccountRepository
-from src.service.booklet_account import BookletAccountService
+from bank_app.application.domain.dtos.booklet_account import BookletAccountDTO
+from bank_app.application.domain.exceptions import NotFound
+from bank_app.application.domain.model.booklet_account import BookletAccount
+from bank_app.application.domain.service import booklet_account
+from bank_app.application.ports.repositories.i_booklet_account import (
+    IBookletAccountRepository,
+)
+from bank_app.application.service.booklet_account import BookletAccountService
 
 
 class TestBookletAccountService:

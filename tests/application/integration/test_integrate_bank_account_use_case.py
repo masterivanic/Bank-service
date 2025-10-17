@@ -2,8 +2,8 @@ from decimal import Decimal
 
 import pytest
 
-from src.domain.exceptions import BusinessException
-from src.domain.model.bank_account import BankAccount
+from bank_app.application.domain.exceptions import BusinessException
+from bank_app.application.domain.model.bank_account import BankAccount
 
 
 class TestIntegrationScenarios:
@@ -34,7 +34,7 @@ class TestIntegrationScenarios:
         mock_bank_account_repository.save.return_value = None
 
         monkeypatch.setattr(
-            "domain.service.bank_account.BankAccountService.can_withdraw",
+            "bank_app.application.domain.service.bank_account.BankAccountService.can_withdraw",
             lambda account, withdrawal_amount: True,
         )
         deposit_result = bank_account_service.deposit_money(
@@ -89,7 +89,7 @@ class TestIntegrationScenarios:
         mock_bank_account_repository.save.return_value = None
 
         monkeypatch.setattr(
-            "domain.service.bank_account.BankAccountService.can_withdraw",
+            "bank_app.application.domain.service.bank_account.BankAccountService.can_withdraw",
             lambda account, withdrawal_amount: True,
         )
 
@@ -151,7 +151,7 @@ class TestIntegrationScenarios:
             return account.balance >= withdrawal_amount
 
         monkeypatch.setattr(
-            "domain.service.bank_account.BankAccountService.can_withdraw",
+            "bank_app.application.domain.service.bank_account.BankAccountService.can_withdraw",
             really_can_withdraw_mock,
         )
         deposit_result = bank_account_service.deposit_money(

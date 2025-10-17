@@ -8,11 +8,14 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 attrs = "^25.4.0"
+django = "^5.2.7"
+djangorestframework = "^3.16.1"
 
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.18.2"
 pytest = "^8.4.2"
+django-stubs = "^5.2.7"
 
 [build-system]
 requires = ["poetry-core"]
