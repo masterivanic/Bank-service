@@ -4,7 +4,7 @@ from uuid import UUID
 
 from bank_app.application.domain.domain_models import DomainService
 from bank_app.application.domain.dtos.account_statement import MonthlyStatementDTO
-from bank_app.application.infrastructure.util import AccountType
+from bank_app.application.util.util import AccountType
 
 
 class AccountStatementUseCase(DomainService):

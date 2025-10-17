@@ -5,13 +5,13 @@ from typing import Union
 
 from bank_app.application.domain.domain_models import DomainService
 from bank_app.application.domain.model.account_statement import (
-    AccountType,
     MonthlyStatement,
     MonthlyStatementIdentity,
     Transaction,
 )
 from bank_app.application.domain.model.bank_account import BankAccount
 from bank_app.application.domain.model.booklet_account import BookletAccount
+from bank_app.application.util.util import AccountType
 
 
 class AccoutStatementService(DomainService):
@@ -38,7 +38,7 @@ class AccoutStatementService(DomainService):
         return MonthlyStatement(
             entity_id=MonthlyStatementIdentity(uuid.uuid4()),
             account_id=account.entity_id.uuid,
-            account_type=account_type,
+            account_type=account_type.value,
             account_number=account.account_number,
             period_start=period_start,
             period_end=period_end,

@@ -8,10 +8,10 @@ from bank_app.application.domain.dtos.account_statement import MonthlyStatementD
 from bank_app.application.domain.exceptions import NotFound
 from bank_app.application.domain.model.bank_account import BankAccount
 from bank_app.application.domain.model.booklet_account import BookletAccount
-from bank_app.application.infrastructure.util import AccountType
 from bank_app.application.ports.api.account_statement_use_case import (
     AccountStatementUseCase,
 )
+from bank_app.application.util.util import AccountType
 
 if TYPE_CHECKING:
     from bank_app.application.domain.service.account_statement import (
