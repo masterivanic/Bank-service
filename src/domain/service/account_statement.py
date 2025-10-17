@@ -3,15 +3,15 @@ import uuid
 from decimal import Decimal
 from typing import Union
 
-from domain.domain_models import DomainService
-from domain.model.account_statement import (
+from src.domain.domain_models import DomainService
+from src.domain.model.account_statement import (
     AccountType,
     MonthlyStatement,
     MonthlyStatementIdentity,
     Transaction,
 )
-from domain.model.bank_account import BankAccount
-from domain.model.booklet_account import BookletAccount
+from src.domain.model.bank_account import BankAccount
+from src.domain.model.booklet_account import BookletAccount
 
 
 class AccoutStatementService(DomainService):

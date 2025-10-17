@@ -2,9 +2,9 @@ import datetime
 from typing import Optional
 from uuid import UUID
 
-from domain.domain_models import DomainService
-from domain.dtos.account_statement import MonthlyStatementDTO
-from infrastructure.util import AccountType
+from src.domain.domain_models import DomainService
+from src.domain.dtos.account_statement import MonthlyStatementDTO
+from src.infrastructure.util import AccountType
 
 
 class AccountStatementUseCase(DomainService):

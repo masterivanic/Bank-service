@@ -2,13 +2,13 @@ from decimal import Decimal
 from typing import TYPE_CHECKING
 from uuid import UUID
 
-from domain.dtos.bank_account import BankAccountDTO
-from domain.exceptions import NotFound
-from ports.api.bank_account_overdraft_use_case import BankAccountOverdraft
+from src.domain.dtos.bank_account import BankAccountDTO
+from src.domain.exceptions import NotFound
+from src.ports.api.bank_account_overdraft_use_case import BankAccountOverdraft
 
 if TYPE_CHECKING:
-    from domain.service.bank_account import BankAccountService
-    from ports.repositories.i_bank_account import IBankAccountRepository
+    from src.domain.service.bank_account import BankAccountService
+    from src.ports.repositories.i_bank_account import IBankAccountRepository
 
 
 class BankAccountOverdraftService(BankAccountOverdraft):

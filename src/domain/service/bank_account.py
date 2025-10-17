@@ -1,12 +1,12 @@
 import uuid
 from decimal import Decimal
 
-from domain.domain_models import AccountIdentity, DomainService
-from domain.exceptions import (
+from src.domain.domain_models import AccountIdentity, DomainService
+from src.domain.exceptions import (
     InsufficientFundsException,
     OverdraftLimitExceededException,
 )
-from domain.model.bank_account import BankAccount
+from src.domain.model.bank_account import BankAccount
 
 
 class BankAccountService(DomainService):

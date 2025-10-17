@@ -1,9 +1,12 @@
 import uuid
 from decimal import Decimal
 
-from domain.domain_models import AccountIdentity, DomainService
-from domain.exceptions import DepositLimitExceededException, InsufficientFundsException
-from domain.model.booklet_account import BookletAccount
+from src.domain.domain_models import AccountIdentity, DomainService
+from src.domain.exceptions import (
+    DepositLimitExceededException,
+    InsufficientFundsException,
+)
+from src.domain.model.booklet_account import BookletAccount
 
 
 class BookletAcountService(DomainService):

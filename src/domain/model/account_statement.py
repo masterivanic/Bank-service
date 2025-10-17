@@ -4,7 +4,7 @@ from uuid import UUID
 
 import attr
 
-from domain.domain_models import AccountIdentity, Entity, EntityIdentity
+from src.domain.domain_models import AccountIdentity, Entity, EntityIdentity
 
 
 @attr.dataclass(frozen=True, slots=True)

@@ -1,13 +1,13 @@
 import abc
 from typing import Any
 
-from domain.domain_models import (
+from src.domain.domain_models import (
     AbstractRepository,
     AccountIdentity,
     Entity,
     EntityIdentity,
 )
-from domain.model.account_statement import Transaction, TransactionIdentity
+from src.domain.model.account_statement import Transaction, TransactionIdentity
 
 
 class ITransactionRepository(AbstractRepository):

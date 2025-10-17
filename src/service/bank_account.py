@@ -2,13 +2,13 @@ from decimal import Decimal
 from typing import TYPE_CHECKING
 from uuid import UUID
 
-from domain.dtos.bank_account import BankAccountDTO
-from domain.exceptions import BusinessException, NotFound
-from domain.service.bank_account import BankAccountService
-from ports.api.bank_account_use_case import BankAccount
+from src.domain.dtos.bank_account import BankAccountDTO
+from src.domain.exceptions import BusinessException, NotFound
+from src.domain.service.bank_account import BankAccountService
+from src.ports.api.bank_account_use_case import BankAccount
 
 if TYPE_CHECKING:
-    from ports.repositories.i_bank_account import IBankAccountRepository
+    from src.ports.repositories.i_bank_account import IBankAccountRepository
 
 
 class BankAccountRedrawAndDepositService(BankAccount):

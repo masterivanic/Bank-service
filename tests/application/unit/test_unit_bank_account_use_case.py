@@ -2,9 +2,9 @@ from decimal import Decimal
 
 import pytest
 
-from domain.dtos.bank_account import BankAccountDTO
-from domain.exceptions import BusinessException, NotFound
-from domain.model.bank_account import BankAccount
+from src.domain.dtos.bank_account import BankAccountDTO
+from src.domain.exceptions import BusinessException, NotFound
+from src.domain.model.bank_account import BankAccount
 
 
 class TestBankAccountRedrawAndDepositService:
@@ -75,16 +75,14 @@ class TestBankAccountRedrawAndDepositService:
             )
 
             monkeypatch.setattr(
-                "domain.service.bank_account.BankAccountService.can_withdraw",
+                "src.domain.service.bank_account.BankAccountService.can_withdraw",
                 lambda account, withdrawal_amount: False,
             )
 
-            with pytest.raises(BusinessException) as exc_info:
+            with pytest.raises(BusinessException) as ex:
                 bank_account_service.redraw(sample_account_number, amount)
 
-            assert (
-                exc_info.value.message == "Insufficient funds to make this withdrawal"
-            )
+            assert ex.value.message == "Insufficient funds to make this withdrawal"
             mock_bank_account_repository.get_by_bank_account_number.assert_called_once_with(
                 account_number=sample_account_number
             )

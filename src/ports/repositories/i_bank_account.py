@@ -3,13 +3,13 @@ from decimal import Decimal
 from typing import Any
 from uuid import UUID
 
-from domain.domain_models import (
+from src.domain.domain_models import (
     AbstractRepository,
     AccountIdentity,
     Entity,
     EntityIdentity,
 )
-from domain.model.bank_account import BankAccount
+from src.domain.model.bank_account import BankAccount
 
 
 class IBankAccountRepository(AbstractRepository):

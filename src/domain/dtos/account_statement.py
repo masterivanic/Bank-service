@@ -4,8 +4,8 @@ from uuid import UUID
 
 import attr
 
-from domain.dtos.queries import DTO
-from domain.model.account_statement import MonthlyStatement, Transaction
+from src.domain.dtos.queries import DTO
+from src.domain.model.account_statement import MonthlyStatement, Transaction
 
 
 @attr.dataclass(frozen=True, slots=True)

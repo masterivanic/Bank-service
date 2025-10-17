@@ -2,13 +2,13 @@ import abc
 from typing import Any
 from uuid import UUID
 
-from domain.domain_models import (
+from src.domain.domain_models import (
     AbstractRepository,
     AccountIdentity,
     Entity,
     EntityIdentity,
 )
-from domain.model.booklet_account import BookletAccount
+from src.domain.model.booklet_account import BookletAccount
 
 
 class IBookletAccountRepository(AbstractRepository):

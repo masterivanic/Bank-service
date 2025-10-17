@@ -3,20 +3,20 @@ import datetime
 from typing import TYPE_CHECKING, Optional, Union
 from uuid import UUID
 
-from domain.domain_models import AccountIdentity
-from domain.dtos.account_statement import MonthlyStatementDTO
-from domain.exceptions import NotFound
-from domain.model.bank_account import BankAccount
-from domain.model.booklet_account import BookletAccount
-from infrastructure.util import AccountType
-from ports.api.account_statement_use_case import AccountStatementUseCase
+from src.domain.domain_models import AccountIdentity
+from src.domain.dtos.account_statement import MonthlyStatementDTO
+from src.domain.exceptions import NotFound
+from src.domain.model.bank_account import BankAccount
+from src.domain.model.booklet_account import BookletAccount
+from src.infrastructure.util import AccountType
+from src.ports.api.account_statement_use_case import AccountStatementUseCase
 
 if TYPE_CHECKING:
-    from domain.service.account_statement import AccoutStatementService
-    from ports.repositories.i_account_statement import IAccountStatementRepository
-    from ports.repositories.i_bank_account import IBankAccountRepository
-    from ports.repositories.i_booklet_account import IBookletAccountRepository
-    from ports.repositories.i_transaction import ITransactionRepository
+    from src.domain.service.account_statement import AccoutStatementService
+    from src.ports.repositories.i_account_statement import IAccountStatementRepository
+    from src.ports.repositories.i_bank_account import IBankAccountRepository
+    from src.ports.repositories.i_booklet_account import IBookletAccountRepository
+    from src.ports.repositories.i_transaction import ITransactionRepository
 
 
 class AccountStatementService(AccountStatementUseCase):

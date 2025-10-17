@@ -4,8 +4,8 @@ from uuid import UUID
 
 import attr
 
-from domain.domain_models import Account, AccountIdentity
-from domain.exceptions import (
+from src.domain.domain_models import Account, AccountIdentity
+from src.domain.exceptions import (
     BusinessException,
     DepositLimitExceededException,
     InsufficientFundsException,

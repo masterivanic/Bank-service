@@ -3,7 +3,7 @@ from uuid import UUID
 
 import pytest
 
-from domain.model.bank_account import AccountIdentity, BankAccount
+from src.domain.model.bank_account import AccountIdentity, BankAccount
 
 
 @pytest.fixture(scope="module")

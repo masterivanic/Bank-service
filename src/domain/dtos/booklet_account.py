@@ -3,8 +3,8 @@ from uuid import UUID
 
 import attr
 
-from domain.dtos.queries import DTO
-from domain.model.booklet_account import BookletAccount
+from src.domain.dtos.queries import DTO
+from src.domain.model.booklet_account import BookletAccount
 
 
 @attr.dataclass(frozen=True, slots=True)

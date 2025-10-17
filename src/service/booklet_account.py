@@ -2,13 +2,13 @@ from decimal import Decimal
 from typing import TYPE_CHECKING
 from uuid import UUID
 
-from domain.dtos.booklet_account import BookletAccountDTO
-from domain.exceptions import NotFound
-from ports.api.booklet_account_use_case import BookletAccount
+from src.domain.dtos.booklet_account import BookletAccountDTO
+from src.domain.exceptions import NotFound
+from src.ports.api.booklet_account_use_case import BookletAccount
 
 if TYPE_CHECKING:
-    from domain.service.booklet_account import BookletAcountService
-    from ports.repositories.i_booklet_account import IBookletAccountRepository
+    from src.domain.service.booklet_account import BookletAcountService
+    from src.ports.repositories.i_booklet_account import IBookletAccountRepository
 
 
 class BookletAccountService(BookletAccount):

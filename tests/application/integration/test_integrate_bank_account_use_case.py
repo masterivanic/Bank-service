@@ -2,8 +2,8 @@ from decimal import Decimal
 
 import pytest
 
-from domain.exceptions import BusinessException
-from domain.model.bank_account import BankAccount
+from src.domain.exceptions import BusinessException
+from src.domain.model.bank_account import BankAccount
 
 
 class TestIntegrationScenarios:

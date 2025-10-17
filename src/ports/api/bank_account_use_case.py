@@ -2,10 +2,10 @@ from decimal import Decimal
 from typing import TYPE_CHECKING
 from uuid import UUID
 
-from domain.domain_models import DomainService
+from src.domain.domain_models import DomainService
 
 if TYPE_CHECKING:
-    from domain.dtos.bank_account import BankAccountDTO
+    from src.domain.dtos.bank_account import BankAccountDTO
 
 
 class BankAccount(DomainService):

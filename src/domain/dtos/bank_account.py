@@ -3,7 +3,7 @@ from uuid import UUID
 
 import attr
 
-from domain.dtos.queries import DTO
+from src.domain.dtos.queries import DTO
 
 
 @attr.dataclass(frozen=True, slots=True)
