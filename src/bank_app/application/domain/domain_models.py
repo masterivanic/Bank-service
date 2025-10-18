@@ -27,7 +27,7 @@ class ValueObject(abc.ABC):
         raise NotImplementedError
 
 
-class EntityIdentity(ValueObject, abc.ABC):
+class EntityIdentity(ValueObject):
     def serialize(self) -> dict[str, Any]:
         raise NotImplementedError("Subclasses must implement serialize()")
 

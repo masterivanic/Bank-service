@@ -18,6 +18,7 @@ from bank_app.application.ports.repositories.i_bank_account import (
 
 
 class BankAccountRepository(IBankAccountRepository):
+    @classmethod
     def _get_bank_account_by_id(cls, entity_id: AccountIdentity) -> BankAccountEntity:
         try:
             return BankAccountEntity.objects.get(entity_id=entity_id.uuid)
@@ -29,16 +30,18 @@ class BankAccountRepository(IBankAccountRepository):
         cls, account_number: UUID
     ) -> BankAccountEntity:
         try:
-            return BankAccountEntity.objects.get(account_number=account_number)
+            return BankAccountEntity.objects.filter(
+                account_number=account_number
+            ).first()
         except BankAccountEntity.DoesNotExist as ex:
             raise NotFound(
                 f"Bank account with number {account_number} does not exist"
             ) from ex
 
     @classmethod
-    def _to_entity(cls, entity: BankAccountEntity) -> BankAccount:
-        return BankAccount(
-            entity_id=AccountIdentity(entity.entity_id),
+    def _to_entity(cls, entity: BankAccount) -> BankAccountEntity:
+        return BankAccountEntity(
+            entity_id=entity.entity_id.uuid,
             account_number=entity.account_number,
             balance=entity.balance,
             overdraft_amount=entity.overdraft_amount,
@@ -86,9 +89,18 @@ class BankAccountRepository(IBankAccountRepository):
     def save(cls, entity: Entity) -> None:
         if not isinstance(entity, BankAccount):
             raise ValueError("entity must be a BankAccount")
-
-        bank_account_entity = cls._to_entity(entity)
-        bank_account_entity.save()
+        try:
+            existing_entity = cls._get_bank_account_by_id(entity_id=entity.entity_id)
+            existing_entity.account_number = entity.account_number
+            existing_entity.balance = entity.balance
+            existing_entity.overdraft_amount = entity.overdraft_amount
+            existing_entity.is_allow_overdraft = entity.is_allow_overdraft
+            existing_entity.is_active = entity.is_active
+            existing_entity.updated_at = entity.updated_at
+            existing_entity.save()
+        except BankAccountEntity.DoesNotExist:
+            bank_account_entity = cls._to_entity(entity)
+            bank_account_entity.save()
 
     @classmethod
     def update_overdraft_amount(
