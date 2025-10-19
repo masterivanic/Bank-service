@@ -33,5 +33,6 @@ def test_bank_account_cannot_be_create_with_negative_balance(bank_account_identi
             entity_id=bank_account_identify,
             account_number=UUID("7ebd50e7-0000-0000-0000-000000000000"),
             balance=Decimal(-100),
+            is_allow_overdraft=False
         )
     assert str(ex.value) == "The balance cannot be negative"

@@ -10,5 +10,8 @@ class BankAppConfig(AppConfig):
 
         self.container = Container()
         self.container.wire(
-            modules=["bank_app.application.adapter.api.views.bank_account"]
+            modules=[
+                "bank_app.application.adapter.api.views.bank_account",
+                "bank_app.application.adapter.api.views.bank_account_overdraft",
+            ]
         )

@@ -47,6 +47,7 @@ class BankAccountOverdraftService(BankAccountOverdraft):
             entity_id=bank_account.entity_id.uuid,
             account_number=bank_account.account_number,
             balance=bank_account.balance,
+            overdraft_amount=bank_account.overdraft_amount,
         )
 
     def set_overdraft_amount(

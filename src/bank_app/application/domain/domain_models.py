@@ -107,8 +107,6 @@ class Account(Entity):
 
     def __attrs_post_init__(self) -> None:
         """post init before instantiate"""
-        if self.balance < 0:
-            raise ValueError("The balance cannot be negative")
         self._validate_initial_state()
 
     def _validate_initial_state(self) -> None:

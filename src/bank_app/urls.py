@@ -6,6 +6,10 @@ from bank_app.application.adapter.api.views.bank_account import (
     BankAccountManagementView,
     BankAccountRedrawView,
 )
+from bank_app.application.adapter.api.views.bank_account_overdraft import (
+    BankAccountOverdraftRedrawView,
+    BankAccountOverdraftSetAmountView,
+)
 
 router = DefaultRouter()
 router.register(
@@ -23,5 +27,15 @@ urlpatterns = [
         "bank-account/redraw",
         BankAccountRedrawView.as_view(),
         name="bank-account-redraw",
+    ),
+    path(
+        "bank-account/overdraft/redraw",
+        BankAccountOverdraftRedrawView.as_view(),
+        name="bank-account-overdraft-redraw",
+    ),
+    path(
+        "bank-account/overdraft/modify",
+        BankAccountOverdraftSetAmountView.as_view(),
+        name="bank-account-overdraft-modify",
     ),
 ]

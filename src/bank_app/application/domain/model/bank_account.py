@@ -18,10 +18,19 @@ class BankAccount(Account):
     created_at: datetime.datetime = datetime.datetime.now()
     updated_at: datetime.datetime = datetime.datetime.now()
 
+    def __attrs_post_init__(self):
+        if not self.is_allow_overdraft:
+            if self.balance < 0:
+                raise ValueError("The balance cannot be negative")
+        super().__attrs_post_init__()
+
     def deposit(self, amount: Decimal) -> None:
         if amount <= 0:
             raise ValueError("The deposit amount must be positive")
         self.balance += amount
+
+        if self.balance < 0:
+            raise ValueError("The balance cannot be negative")
 
     def withdraw(self, amount: Decimal) -> None:
         if amount <= 0:
@@ -44,8 +53,7 @@ class BankAccount(Account):
 
     def has_sufficient_funds(self, amount: Decimal) -> bool:
         if self.is_allow_overdraft:
-            available_balance = self.balance + self.overdraft_amount
-            return available_balance >= amount
+            return self.available_balance >= amount
         return self.balance >= amount
 
     def set_overdraft_amount(self, amount: Decimal) -> None:
