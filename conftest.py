@@ -5,11 +5,15 @@ from uuid import UUID, uuid4
 
 import pytest
 
+from bank_app.application.adapter.persistence.repository.bank_account_repository import (
+    BankAccountRepository,
+)
 from bank_app.application.domain.model.bank_account import AccountIdentity, BankAccount
 from bank_app.application.ports.repositories.i_bank_account import (
     IBankAccountRepository,
 )
 from bank_app.application.service.bank_account import BankAccountRedrawAndDepositService
+from tests.fixtures import *
 
 
 @pytest.fixture()
@@ -20,6 +24,11 @@ def mock_bank_account_repository():
 @pytest.fixture()
 def bank_account_service(mock_bank_account_repository):
     return BankAccountRedrawAndDepositService(mock_bank_account_repository)
+
+
+@pytest.fixture()
+def bank_account_service_implement():
+    return BankAccountRedrawAndDepositService(BankAccountRepository())
 
 
 @pytest.fixture()

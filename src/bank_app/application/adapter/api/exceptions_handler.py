@@ -16,6 +16,8 @@ def exceptions_handler(exc, context):
     if response is not None:
         return response
 
-    if isinstance(exc, NotFound) or isinstance(exc, BusinessException):
+    if isinstance(exc, NotFound):
         return problem_response(str(exc.message), status.HTTP_404_NOT_FOUND)
+    if isinstance(exc, BusinessException):
+        return problem_response(str(exc.message), status.HTTP_500_INTERNAL_SERVER_ERROR)
     return problem_response(str(exc), status.HTTP_500_INTERNAL_SERVER_ERROR)

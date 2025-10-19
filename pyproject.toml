@@ -12,18 +12,21 @@ django = "^5.2.7"
 djangorestframework = "^3.16.1"
 drf-spectacular = "^0.28.0"
 dependency-injector = "^4.48.2"
-drf-yasg = "^1.21.11"
+django-extensions = "^4.1"
 
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.18.2"
 pytest = "^8.4.2"
 django-stubs = "^5.2.7"
+factory-boy = "^3.3.3"
+pytest-django = "^4.11.1"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "exalt_hexarch.settings"
 pythonpath = [".", "./src"]
 testpaths = ["tests"]

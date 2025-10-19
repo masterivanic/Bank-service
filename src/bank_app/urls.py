@@ -22,6 +22,6 @@ urlpatterns = [
     path(
         "bank-account/redraw",
         BankAccountRedrawView.as_view(),
-        name="bank-account-deposit",
+        name="bank-account-redraw",
     ),
 ]

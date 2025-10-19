@@ -30,9 +30,7 @@ class BankAccountRepository(IBankAccountRepository):
         cls, account_number: UUID
     ) -> BankAccountEntity:
         try:
-            return BankAccountEntity.objects.filter(
-                account_number=account_number
-            ).first()
+            return BankAccountEntity.objects.get(account_number=account_number)
         except BankAccountEntity.DoesNotExist as ex:
             raise NotFound(
                 f"Bank account with number {account_number} does not exist"
