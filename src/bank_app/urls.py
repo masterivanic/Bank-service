@@ -10,10 +10,21 @@ from bank_app.application.adapter.api.views.bank_account_overdraft import (
     BankAccountOverdraftRedrawView,
     BankAccountOverdraftSetAmountView,
 )
+from bank_app.application.adapter.api.views.booklet_account import (
+    BookletAccountManagementView,
+    BookletDepositView,
+    BookletRedrawView,
+    BookletSetDepositLimitView,
+)
 
 router = DefaultRouter()
 router.register(
     r"bank-account", BankAccountManagementView, basename="bankaccount-management"
+)
+router.register(
+    r"booklet-account",
+    BookletAccountManagementView,
+    basename="bookletaccount-management",
 )
 
 urlpatterns = [
@@ -37,5 +48,20 @@ urlpatterns = [
         "bank-account/overdraft/modify",
         BankAccountOverdraftSetAmountView.as_view(),
         name="bank-account-overdraft-modify",
+    ),
+    path(
+        "booklet-account/deposit",
+        BookletDepositView.as_view(),
+        name="booklet-account-deposit",
+    ),
+    path(
+        "booklet-account/redraw",
+        BookletRedrawView.as_view(),
+        name="booklet-account-redraw",
+    ),
+    path(
+        "booklet-account/deposit/limit",
+        BookletSetDepositLimitView.as_view(),
+        name="booklet-account-deposit-limit",
     ),
 ]

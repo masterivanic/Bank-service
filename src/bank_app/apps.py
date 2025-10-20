@@ -13,5 +13,6 @@ class BankAppConfig(AppConfig):
             modules=[
                 "bank_app.application.adapter.api.views.bank_account",
                 "bank_app.application.adapter.api.views.bank_account_overdraft",
+                "bank_app.application.adapter.api.views.booklet_account",
             ]
         )

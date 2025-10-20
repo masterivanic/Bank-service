@@ -13,7 +13,6 @@ class BookletAccountEntity(models.Model):
     updated_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        # unique_together = [["entity_id", "account_number"]]
         db_table = "booklet_account"
 
     def __str__(self):
