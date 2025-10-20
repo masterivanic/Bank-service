@@ -23,6 +23,7 @@ from bank_app.application.adapter.persistence.entity.bank_account_entity import 
 from bank_app.application.ports.api.bank_account_use_case import (
     BankAccount as BankAccountUseCase,
 )
+from bank_app.signals import transaction_occurred
 from exalt_hexarch.containers import Container
 
 
@@ -42,9 +43,15 @@ class BankAccountDepositView(APIView):
         result = bank_account_service.deposit_money(
             account_number=account_number, amount=amount
         )
-        return Response(
-            data=BankAccountResultSerializer(result).data, status=status.HTTP_200_OK
+        data = BankAccountResultSerializer(result).data
+        transaction_occurred.send(
+            sender=self.__class__,
+            operation_type="DEPOSIT",
+            account_id=data.get("entity_id"),
+            account_type="CURRENT_ACCOUNT",
+            amount=amount,
         )
+        return Response(data, status=status.HTTP_200_OK)
 
 
 class BankAccountRedrawView(APIView):
@@ -63,10 +70,15 @@ class BankAccountRedrawView(APIView):
         result = bank_account_service.redraw(
             account_number=account_number, amount=amount
         )
-
-        return Response(
-            data=BankAccountResultSerializer(result).data, status=status.HTTP_200_OK
+        data = BankAccountResultSerializer(result).data
+        transaction_occurred.send(
+            sender=self.__class__,
+            operation_type="WITHDRAWAL",
+            account_id=data.get("entity_id"),
+            account_type="CURRENT_ACCOUNT",
+            amount=amount,
         )
+        return Response(data, status=status.HTTP_200_OK)
 
 
 class BankAccountManagementView(

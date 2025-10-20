@@ -39,10 +39,10 @@ class AccountStatementRepository(IAccountStatementRepository):
             transaction = Transaction(
                 entity_id=trans_entity.entity_id,
                 account_id=trans_entity.account_id,
+                account_type=trans_entity.account_type,
                 transaction_type=trans_entity.transaction_type,
                 amount=trans_entity.amount,
                 transation_date=trans_entity.transation_date,
-                balance_after=trans_entity.balance_after,
             )
             transactions.append(transaction)
         return transactions

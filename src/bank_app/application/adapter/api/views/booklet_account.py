@@ -22,6 +22,7 @@ from bank_app.application.adapter.persistence.entity.booklet_account_entity impo
 from bank_app.application.service.booklet_account import (
     BookletAccountService as BookletAccountUseCase,
 )
+from bank_app.signals import transaction_occurred
 from exalt_hexarch.containers import Container
 
 
@@ -41,9 +42,15 @@ class BookletDepositView(APIView):
         result = booklet_account_service.deposit_money(
             account_number=account_number, amount=amount
         )
-        return Response(
-            data=BookletAccountResultSerializer(result).data, status=status.HTTP_200_OK
+        data = BookletAccountResultSerializer(result).data
+        transaction_occurred.send(
+            sender=self.__class__,
+            operation_type="DEPOSIT",
+            account_id=data.get("entity_id"),
+            account_type="BOOKLET_ACCOUNT",
+            amount=amount,
         )
+        return Response(data, status=status.HTTP_200_OK)
 
 
 class BookletRedrawView(APIView):
@@ -62,9 +69,15 @@ class BookletRedrawView(APIView):
         result = booklet_account_service.redraw(
             account_number=account_number, amount=amount
         )
-        return Response(
-            data=BookletAccountResultSerializer(result).data, status=status.HTTP_200_OK
+        data = BookletAccountResultSerializer(result).data
+        transaction_occurred.send(
+            sender=self.__class__,
+            operation_type="WITHDRAWAL",
+            account_id=data.get("entity_id"),
+            account_type="BOOKLET_ACCOUNT",
+            amount=amount,
         )
+        return Response(data, status=status.HTTP_200_OK)
 
 
 class BookletSetDepositLimitView(APIView):

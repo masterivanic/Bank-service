@@ -11,6 +11,7 @@ from bank_app.application.adapter.api.serializers.bank_account import (
 from bank_app.application.service.bank_acount_overdraft import (
     BankAccountOverdraftService as BankAccountOverdraftUseCase,
 )
+from bank_app.signals import transaction_occurred
 from exalt_hexarch.containers import Container
 
 
@@ -30,9 +31,15 @@ class BankAccountOverdraftRedrawView(APIView):
         result = bank_account_overdraft_service.withdraw_from_account(
             account_number=account_number, amount=amount
         )
-        return Response(
-            data=BankAccountResultSerializer(result).data, status=status.HTTP_200_OK
+        data = BankAccountResultSerializer(result).data
+        transaction_occurred.send(
+            sender=self.__class__,
+            operation_type="WITHDRAWAL",
+            account_id=data.get("entity_id"),
+            account_type="CURRENT_ACCOUNT",
+            amount=amount,
         )
+        return Response(data, status=status.HTTP_200_OK)
 
 
 class BankAccountOverdraftSetAmountView(APIView):

@@ -31,10 +31,10 @@ class AccountType:
 class Transaction(Entity):
     entity_id: "TransactionIdentity"
     account_id: "AccountIdentity"
+    account_type: str  # CURRENT_ACCOUNT, BOOKLET_ACCOUNT
     transaction_type: str  # "DEPOSIT", "WITHDRAWAL"
     amount: Decimal
     transation_date: datetime.datetime
-    balance_after: Decimal
 
 
 @attr.dataclass(slots=True, hash=False, eq=False)

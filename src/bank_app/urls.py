@@ -1,6 +1,9 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
+from bank_app.application.adapter.api.views.account_statement import (
+    BankAccountStatementView,
+)
 from bank_app.application.adapter.api.views.bank_account import (
     BankAccountDepositView,
     BankAccountManagementView,
@@ -63,5 +66,10 @@ urlpatterns = [
         "booklet-account/deposit/limit",
         BookletSetDepositLimitView.as_view(),
         name="booklet-account-deposit-limit",
+    ),
+    path(
+        "account/statement",
+        BankAccountStatementView.as_view(),
+        name="account-statement",
     ),
 ]

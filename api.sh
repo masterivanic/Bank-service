@@ -6,7 +6,7 @@ curl -X 'POST' \
   -H 'Content-Type: application/json' \
   -d '{
   "account_number": "67f4b900-c7a9-4e65-97e2-f3c0dfb44b07",
-  "amount": "100.50"
+  "amount": "2000.50"
 }' | jq '.'
 
 
