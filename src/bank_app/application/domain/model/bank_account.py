@@ -12,7 +12,7 @@ class BankAccount(Account):
     entity_id: "AccountIdentity"
     account_number: UUID
     balance: Decimal = Decimal("0.00")
-    overdraft_amount: Decimal = Decimal("0.00")
+    overdraft_amount: Decimal = Decimal("100.00")
     is_allow_overdraft: bool = True
     is_active: bool = True
     created_at: datetime.datetime = datetime.datetime.now()
@@ -22,15 +22,17 @@ class BankAccount(Account):
         if not self.is_allow_overdraft:
             if self.balance < 0:
                 raise ValueError("The balance cannot be negative")
+        if self.is_allow_overdraft and self.overdraft_amount <= 0:
+            raise ValueError(
+                "if overdraft allow, overdraft amount shoul be greater than 0"
+            )
+
         super().__attrs_post_init__()
 
     def deposit(self, amount: Decimal) -> None:
         if amount <= 0:
             raise ValueError("The deposit amount must be positive")
         self.balance += amount
-
-        if self.balance < 0:
-            raise ValueError("The balance cannot be negative")
 
     def withdraw(self, amount: Decimal) -> None:
         if amount <= 0:

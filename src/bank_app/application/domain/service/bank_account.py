@@ -5,6 +5,7 @@ from bank_app.application.domain.domain_models import AccountIdentity, DomainSer
 from bank_app.application.domain.exceptions import (
     InsufficientFundsException,
     OverdraftLimitExceededException,
+    OverdraftPermissionDeniedException,
 )
 from bank_app.application.domain.model.bank_account import BankAccount
 
@@ -29,6 +30,10 @@ class BankAccountService(DomainService):
             raise ValueError("Withdrawal amount must be positive")
 
         if not account.has_sufficient_funds(amount):
+            if not account.is_allow_overdraft:
+                raise OverdraftPermissionDeniedException(
+                    "You are not allow to overdraft"
+                )
             if account.overdraft_amount > 0:
                 raise OverdraftLimitExceededException(
                     f"Withdrawal of {amount} exceeds overdraft limit."

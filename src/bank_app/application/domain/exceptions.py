@@ -17,6 +17,10 @@ class OverdraftLimitExceededException(BusinessException):
     pass
 
 
+class OverdraftPermissionDeniedException(BusinessException):
+    pass
+
+
 class InsufficientFundsException(BusinessException):
     pass
 

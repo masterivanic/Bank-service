@@ -16,7 +16,7 @@ class BankAccountModelFactory(factory.django.DjangoModelFactory):
     account_number = factory.LazyFunction(uuid4)
     balance = factory.LazyAttribute(lambda _: Decimal("1000.00"))
     overdraft_amount = factory.LazyAttribute(lambda _: Decimal("500.00"))
-    is_allow_overdraft = True
+    is_allow_overdraft = False
     is_active = True
 
     class Params:
