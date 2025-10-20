@@ -33,7 +33,7 @@ class BookletDepositView(APIView):
         booklet_account_service: BookletAccountUseCase = Provide[
             Container.booklet_account_service
         ],
-    ):
+    ) -> Response:
         serializer = BookletAccountSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         account_number = serializer.validated_data["account_number"]
@@ -54,7 +54,7 @@ class BookletRedrawView(APIView):
         booklet_account_service: BookletAccountUseCase = Provide[
             Container.booklet_account_service
         ],
-    ):
+    ) -> Response:
         serializer = BookletAccountSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         account_number = serializer.validated_data["account_number"]
@@ -75,7 +75,7 @@ class BookletSetDepositLimitView(APIView):
         booklet_account_service: BookletAccountUseCase = Provide[
             Container.booklet_account_service
         ],
-    ):
+    ) -> Response:
         serializer = BookletAccountSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         account_number = serializer.validated_data["account_number"]

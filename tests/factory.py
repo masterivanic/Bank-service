@@ -6,6 +6,9 @@ import factory
 from bank_app.application.adapter.persistence.entity.bank_account_entity import (
     BankAccountEntity,
 )
+from bank_app.application.adapter.persistence.entity.booklet_account_entity import (
+    BookletAccountEntity,
+)
 
 
 class BankAccountModelFactory(factory.django.DjangoModelFactory):
@@ -25,3 +28,17 @@ class BankAccountModelFactory(factory.django.DjangoModelFactory):
         no_overdraft = factory.Trait(
             is_allow_overdraft=False, overdraft_amount=Decimal("0.00")
         )
+
+
+class BookletAccountModelFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = BookletAccountEntity
+
+    entity_id = factory.LazyFunction(uuid4)
+    account_number = factory.LazyFunction(uuid4)
+    balance = factory.LazyAttribute(lambda _: Decimal("1000.00"))
+    deposit_limit = factory.LazyAttribute(lambda _: Decimal("5000.00"))
+    is_active = True
+
+    class Params:
+        zero_balance = factory.Trait(balance=Decimal("0.00"))
