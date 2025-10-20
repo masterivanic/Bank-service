@@ -1,0 +1,32 @@
+services:
+  bank_db:
+    image: postgres:16.6-bullseye
+    container_name: bank_db_container
+    restart: always
+    environment:
+      POSTGRES_DB: bank_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 8Fny?aXEFkh9ePA3
+    expose:
+      - "5432"
+    volumes:
+      - "bank-data:/var/lib/postgresql/data/"
+
+  bank_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bank_service_container
+    environment:
+      - POSTGRES_DB=bank_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=8Fny?aXEFkh9ePA3
+      - POSTGRES_HOST=bank_db
+      - POSTGRES_PORT=5432
+    depends_on:
+      - bank_db
+    ports:
+      - "8000:8000"
+
+volumes:
+  bank-data:
