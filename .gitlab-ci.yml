@@ -17,6 +17,7 @@ setup_python:
   before_script:
     - apk add curl
     - curl -sSL https://install.python-poetry.org | python - --version ${POETRY_VERSION}
+    - export PATH="/root/.local/bin:$PATH"
     - poetry --version
   script:
     - poetry install --no-interaction --no-ansi
@@ -38,6 +39,7 @@ python_tests:
   before_script:
     - apk add curl
     - curl -sSL https://install.python-poetry.org | python - --version ${POETRY_VERSION}
+    - export PATH="/root/.local/bin:$PATH"
     - poetry --version
     - poetry install --no-interaction --no-ansi
   script:
