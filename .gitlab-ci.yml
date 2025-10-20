@@ -1,0 +1,50 @@
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+
+variables:
+  POETRY_VERSION: '1.8.2'
+  PYTHON_VERSION: '3.10'
+
+stages: 
+  - build
+  - test
+
+setup_python:
+  image: python:${PYTHON_VERSION}-alpine
+  stage: build
+  before_script:
+    - apk add curl
+    - curl -sSL https://install.python-poetry.org | python - --version ${POETRY_VERSION}
+    - poetry --version
+  script:
+    - poetry install --no-interaction --no-ansi
+  artifacts:
+    paths:
+      - .venv/
+    expire_in: 1 hour
+  cache:
+    paths:
+      - .venv/
+    key: ${CI_COMMIT_REF_SLUG}
+    policy: pull-push
+
+python_tests:
+  image: python:${PYTHON_VERSION}-alpine
+  stage: test
+  dependencies:
+    - setup_python
+  before_script:
+    - apk add curl
+    - curl -sSL https://install.python-poetry.org | python - --version ${POETRY_VERSION}
+    - poetry --version
+    - poetry install --no-interaction --no-ansi
+  script:
+    - poetry run pytest --junitxml=reports/junit.xml --cov=./ --cov-report=xml:reports/coverage.xml
+  artifacts:
+    when: always
+    reports:
+      junit: reports/junit.xml
+ 
+
