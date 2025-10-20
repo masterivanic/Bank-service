@@ -1,4 +1,7 @@
 #!/bin/bash
+
+cp src/exalt_hexarch/settings_docker_example.py src/exalt_hexarch/settings_docker.py
+
 MANAGEPY=src/manage.py
 
 while !</dev/tcp/$POSTGRES_HOST/$POSTGRES_PORT; do echo "En attente du demarrage de postgresql" && sleep 1; done

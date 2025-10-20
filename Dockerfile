@@ -24,7 +24,6 @@ RUN poetry config virtualenvs.create false && \
     poetry install --no-dev --no-interaction --no-ansi
 
 COPY . /app
-RUN cp /src/exalt_hexarch/settings_docker_example.py /app/exalt_hexarch/settings_docker.py
 
 RUN chmod +x /app/entrypoint.sh && \
     sed -i 's/\r$//' /app/entrypoint.sh
