@@ -31,9 +31,9 @@ class TransactionRepository(ITransactionRepository):
             entity_id=TransactionIdentity(entity.entity_id),
             account_id=AccountIdentity(entity.account_id),
             transaction_type=entity.transaction_type,
+            account_type=entity.account_type,
             amount=entity.amount,
-            transation_date=entity.transation_date,
-            balance_after=entity.balance_after,
+            transaction_date=entity.transaction_date,
         )
 
     @classmethod
@@ -43,8 +43,8 @@ class TransactionRepository(ITransactionRepository):
             entity.account_id = domain.account_id.uuid
             entity.transaction_type = domain.transaction_type
             entity.amount = domain.amount
-            entity.transation_date = domain.transation_date
-            entity.balance_after = domain.balance_after
+            entity.transaction_date = domain.transaction_date
+            entity.account_type = domain.account_type
             return entity
         except TransationEntity.DoesNotExist:
             return TransationEntity(
@@ -52,8 +52,8 @@ class TransactionRepository(ITransactionRepository):
                 account_id=domain.account_id.uuid,
                 transaction_type=domain.transaction_type,
                 amount=domain.amount,
-                transation_date=domain.transation_date,
-                balance_after=domain.balance_after,
+                transaction_date=domain.transaction_date,
+                account_type=domain.account_type,
             )
 
     @classmethod
@@ -80,9 +80,9 @@ class TransactionRepository(ITransactionRepository):
     ) -> list[Transaction]:
         transactions_entities = TransationEntity.objects.filter(
             account_id=account_id.uuid,
-            transation_date__gte=start_date,
-            transation_date__lte=end_date,
-        ).order_by("-transation_date")
+            transaction_date__gte=start_date,
+            transaction_date__lte=end_date,
+        ).order_by("-transaction_date")
         return [cls._to_domain(entity) for entity in transactions_entities]
 
     @classmethod

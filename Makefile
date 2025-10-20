@@ -6,9 +6,13 @@ help:
 	@echo 'Development: '
 	@echo '   make test        run unit and integration tests'
 	@echo '   make mypy        run mypy static typing checker'
-	@echo '   make buidl       run linters and tests'
+	@echo '   make shell       django shell'
 
-build: mypy test
+shell:
+	$(MANAGEPY) shell
+
+mypy:
+	mypy .
 
 run:
 	$(MANAGEPY) runserver

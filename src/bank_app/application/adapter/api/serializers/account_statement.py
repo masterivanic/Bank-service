@@ -14,6 +14,13 @@ class AccountStatementSerializer(serializers.Serializer):
     )
     period_end = serializers.DateTimeField(required=False, allow_null=True)
 
+    def validate(self, attrs):
+        if "period_end" not in attrs or attrs["period_end"] is None:
+            from django.utils import timezone
+
+            attrs["period_end"] = timezone.now()
+        return attrs
+
     def validate_type_account(self, value):
         try:
             return AccountType(value)
@@ -29,7 +36,6 @@ class TransactionSerializer(serializers.Serializer):
     transaction_type = serializers.CharField()
     amount = serializers.DecimalField(max_digits=19, decimal_places=2)
     transaction_date = serializers.DateTimeField()
-    balance_after = serializers.DecimalField(max_digits=19, decimal_places=2)
 
     def to_representation(self, instance):
         if isinstance(instance, Transaction):
@@ -41,11 +47,11 @@ class TransactionSerializer(serializers.Serializer):
                 if hasattr(instance.account_id, "uuid")
                 else str(instance.account_id),
                 "transaction_type": instance.transaction_type,
+                "account_type": instance.account_type,
                 "amount": str(instance.amount),
-                "transaction_date": instance.transation_date.isoformat()
+                "transaction_date": instance.transaction_date.isoformat()
                 if isinstance(instance.transaction_date, datetime.datetime)
                 else instance.transaction_date,
-                "balance_after": str(instance.balance_after),
             }
         return super().to_representation(instance)
 

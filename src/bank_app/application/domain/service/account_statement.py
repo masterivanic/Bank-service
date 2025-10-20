@@ -24,9 +24,9 @@ class AccoutStatementService(DomainService):
     ) -> "MonthlyStatement":
         period_start = period_end - datetime.timedelta(days=30)
         period_transactions = [
-            t for t in transactions if period_start <= t.transation_date <= period_end
+            t for t in transactions if period_start <= t.transaction_date <= period_end
         ]
-        period_transactions.sort(key=lambda x: x.transation_date, reverse=True)
+        period_transactions.sort(key=lambda x: x.transaction_date, reverse=True)
         account_type = (
             AccountType.CURRENT_ACCOUNT
             if isinstance(account, BankAccount)
@@ -57,9 +57,9 @@ class AccoutStatementService(DomainService):
     ) -> Decimal:
         """Calculate balance at the start of the period"""
         previous_transactions = [
-            t for t in transactions if t.transation_date < period_start
+            t for t in transactions if t.transaction_date < period_start
         ]
-        previous_transactions.sort(key=lambda x: x.transation_date)
+        previous_transactions.sort(key=lambda x: x.transaction_date)
 
         current_balance = account.balance
 

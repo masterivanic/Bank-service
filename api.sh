@@ -59,3 +59,14 @@ curl -X 'POST' \
   "account_number": "f13057a4-021d-484a-9224-74d467657c91",
   "amount": "1000.50"
 }' | jq '.'
+
+
+
+curl -X 'POST' \
+  'http://localhost:8000/api/account/statement' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "account_id": "52f9d471-f65d-43e4-9863-64231dd41fc7",
+  "type_account": "CURRENT_ACCOUNT"
+}' | jq '.'

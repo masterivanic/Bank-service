@@ -42,7 +42,7 @@ class AccountStatementRepository(IAccountStatementRepository):
                 account_type=trans_entity.account_type,
                 transaction_type=trans_entity.transaction_type,
                 amount=trans_entity.amount,
-                transation_date=trans_entity.transation_date,
+                transaction_date=trans_entity.transaction_date,
             )
             transactions.append(transaction)
         return transactions
