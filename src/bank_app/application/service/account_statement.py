@@ -79,7 +79,7 @@ class AccountStatementService(AccountStatementUseCase):
 
         account = self._get_account(account_id=account_id, type_account=type_account)
         if not account:
-            raise NotADirectoryError(f"Account with id {account_id} does not exist")
+            raise NotFound(f"Account with id {account_id} does not exist")
         transactions = self._transaction_repository.get_by_account_id(
             AccountIdentity(account_id)
         )
