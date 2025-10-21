@@ -2,7 +2,7 @@ import datetime
 from typing import Any
 
 from bank_app.application.adapter.persistence.entity.account_statement_entity import (
-    TransationEntity,
+    TransactionEntity,
 )
 from bank_app.application.domain.domain_models import (
     AccountIdentity,
@@ -19,14 +19,14 @@ from bank_app.application.ports.repositories.i_transaction import ITransactionRe
 
 class TransactionRepository(ITransactionRepository):
     @classmethod
-    def _get_transaction_by_id(cls, entity_id: TransactionIdentity) -> TransationEntity:
+    def _get_transaction_by_id(cls, entity_id: TransactionIdentity) -> TransactionEntity:
         try:
-            return TransationEntity.objects.get(entity_id=entity_id.uuid)
-        except TransationEntity.DoesNotExist as ex:
+            return TransactionEntity.objects.get(entity_id=entity_id.uuid)
+        except TransactionEntity.DoesNotExist as ex:
             raise NotFound(f"Transaction {entity_id.uuid} does not exist") from ex
 
     @classmethod
-    def _to_domain(cls, entity: TransationEntity) -> Transaction:
+    def _to_domain(cls, entity: TransactionEntity) -> Transaction:
         return Transaction(
             entity_id=TransactionIdentity(entity.entity_id),
             account_id=AccountIdentity(entity.account_id),
@@ -37,17 +37,17 @@ class TransactionRepository(ITransactionRepository):
         )
 
     @classmethod
-    def _to_entity(cls, domain: Transaction) -> TransationEntity:
+    def _to_entity(cls, domain: Transaction) -> TransactionEntity:
         try:
-            entity = TransationEntity.objects.get(entity_id=domain.entity_id.uuid)
+            entity = TransactionEntity.objects.get(entity_id=domain.entity_id.uuid)
             entity.account_id = domain.account_id.uuid
             entity.transaction_type = domain.transaction_type
             entity.amount = domain.amount
             entity.transaction_date = domain.transaction_date
             entity.account_type = domain.account_type
             return entity
-        except TransationEntity.DoesNotExist:
-            return TransationEntity(
+        except TransactionEntity.DoesNotExist:
+            return TransactionEntity(
                 entity_id=domain.entity_id.uuid,
                 account_id=domain.account_id.uuid,
                 transaction_type=domain.transaction_type,
@@ -66,7 +66,7 @@ class TransactionRepository(ITransactionRepository):
 
     @classmethod
     def get_by_account_id(cls, account_id: AccountIdentity) -> list[Transaction]:
-        transactions_entities = TransationEntity.objects.filter(
+        transactions_entities = TransactionEntity.objects.filter(
             account_id=account_id.uuid
         )
         return [cls._to_domain(entity) for entity in transactions_entities]
@@ -78,7 +78,7 @@ class TransactionRepository(ITransactionRepository):
         start_date: datetime.datetime,
         end_date: datetime.datetime,
     ) -> list[Transaction]:
-        transactions_entities = TransationEntity.objects.filter(
+        transactions_entities = TransactionEntity.objects.filter(
             account_id=account_id.uuid,
             transaction_date__gte=start_date,
             transaction_date__lte=end_date,

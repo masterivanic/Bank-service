@@ -4,7 +4,7 @@ from uuid import uuid4
 import factory
 
 from bank_app.application.adapter.persistence.entity.account_statement_entity import (
-    TransationEntity,
+    TransactionEntity,
 )
 from bank_app.application.adapter.persistence.entity.bank_account_entity import (
     BankAccountEntity,
@@ -49,7 +49,7 @@ class BookletAccountModelFactory(factory.django.DjangoModelFactory):
 
 class TransationModelFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = TransationEntity
+        model = TransactionEntity
 
     entity_id = factory.LazyFunction(uuid4)
     account_id = factory.LazyFunction(uuid4)

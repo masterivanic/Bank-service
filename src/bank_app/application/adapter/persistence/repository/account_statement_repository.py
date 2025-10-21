@@ -5,7 +5,7 @@ from django.db import transaction
 
 from bank_app.application.adapter.persistence.entity.account_statement_entity import (
     MonthlyStatementEntity,
-    TransationEntity,
+    TransactionEntity,
 )
 from bank_app.application.domain.domain_models import Entity, EntityIdentity
 from bank_app.application.domain.exceptions import NotFound
@@ -92,7 +92,7 @@ class AccountStatementRepository(IAccountStatementRepository):
         cls, statement_entity: MonthlyStatementEntity, transactions: list[Transaction]
     ) -> None:
         transaction_uuids = [t.entity_id.uuid for t in transactions]
-        transaction_entities = TransationEntity.objects.filter(
+        transaction_entities = TransactionEntity.objects.filter(
             entity_id__in=transaction_uuids
         )
         statement_entity.transactions.clear()

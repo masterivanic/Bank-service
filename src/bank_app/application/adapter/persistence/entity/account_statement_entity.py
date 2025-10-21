@@ -3,7 +3,7 @@ from uuid import uuid4
 from django.db import models
 
 
-class TransationEntity(models.Model):
+class TransactionEntity(models.Model):
     ACCOUNT_CHOICES = [
         ("CURRENT_ACCOUNT", "CURRENT_ACCOUNT"),
         ("BOOKLET_ACCOUNT", "BOOKLET_ACCOUNT"),
@@ -28,7 +28,7 @@ class TransationEntity(models.Model):
         db_table = "transaction"
 
     def __str__(self):
-        return f"TransationEntity Number {self.entity_id}"
+        return f"TransactionEntity Number {self.entity_id}"
 
 
 class MonthlyStatementEntity(models.Model):
@@ -41,7 +41,7 @@ class MonthlyStatementEntity(models.Model):
     generated_at = models.DateTimeField(auto_now=True)
     opening_balance = models.DecimalField(max_digits=19, decimal_places=2)
     closing_balance = models.DecimalField(max_digits=19, decimal_places=2)
-    transactions = models.ManyToManyField(TransationEntity)
+    transactions = models.ManyToManyField(TransactionEntity)
 
     class Meta:
         db_table = "monthlystatement"

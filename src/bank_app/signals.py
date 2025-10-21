@@ -5,7 +5,7 @@ from django.db import transaction
 from django.dispatch import Signal, receiver
 
 from bank_app.application.adapter.persistence.entity.account_statement_entity import (
-    TransationEntity,
+    TransactionEntity,
 )
 
 logger = logging.getLogger(__name__)
@@ -22,7 +22,7 @@ def save_transaction_on_operation(sender, **kwargs):
 
     try:
         with transaction.atomic():
-            TransationEntity.objects.create(
+            TransactionEntity.objects.create(
                 entity_id=uuid4(),
                 account_id=account_id,
                 transaction_type=operation_type,
