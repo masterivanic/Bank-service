@@ -1,98 +1,58 @@
-# 💰 **Bank Account** 💰
+# 💰 **Bank Account Application** 💰
 
-🌐 Available in :  
-[🇫🇷 Français](README.md) | [🇬🇧 English](README.en.md)
+### 🧩 Feature 1: The Bank Account
 
-# Subject
+A **bank account** must allow the following basic operations:
 
-This kata is a [hexagonal architecture](https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)) challenge
-focused on the banking domain.
+* Have a **unique account number** (any format)
+* Manage a **balance**
+* Allow **money deposits**
+* Allow **money withdrawals**
 
-## ⚠️ Application Guidelines ⚠️
+**Business rule:**
+A withdrawal cannot be made if it exceeds the available balance.
 
-> This kata has two objectives:
-> - First, to assess your technical skills as a candidate;
-> - Second, to serve as a foundation for your onboarding if you join us :smile:.
->
-> It is intentionally broad in scope.
->
-> **In the first case (recruitment process), we understand that time is a precious and limited resource.
-> That's why we offer three levels of commitment, depending on the time you can dedicate:**
->
-> 1. You have little time (one evening): Focus only on the business code.
->    - Ensure it is tested and functional, with test adapters.
->    - **We will not hold it against you if you do not complete the other parts.**
->    - **We will discuss any uncovered elements during the technical interview.**
-> 2. You have more time (several evenings): The business code, exposed via a REST API, and functional persistence; all thoroughly tested end-to-end.
-> 3. You have plenty of time and want to go further: The same, with application containerization and a CI/CD pipeline ;p
->
-> You will be evaluated on the following points:
->
-> - All delivered code must be adequately tested (both passing and failing cases).
-> - We will pay close attention to design, quality, and code readability (including commits).
->
-> We understand that each candidate has different time constraints, and we will value your ability to prioritize and
-> deliver quality work within the given time.
+---
 
-## Implementation Guidelines
+### 💳 Feature 2: Authorized Overdraft
 
-> To complete this kata:
-> - Create a branch from main.
-> - Perform your development on this branch.
-> - When you are ready to submit, open a merge request to main.
->
-> ⚠️ Opening your merge request will trigger the code review!
->
-> ⚠️ This merge request is for code review purposes, **DO NOT MERGE IT!**
+Some bank accounts may have an **authorized overdraft**.
 
-### Feature 1: Bank Account
+**Business rule:**
 
-We want to implement a bank account feature.
+* If an account has an authorized overdraft, a withdrawal exceeding the balance is allowed **only if** the resulting balance does not exceed the overdraft limit.
 
-The account must have:
+---
 
-- A unique account number (format is free).
-- A balance.
-- A deposit function.
-- A withdrawal function.
+### 💰 Feature 3: Savings Account
 
-The following business rule must be implemented:
+A **savings account** is a specific type of bank account with additional constraints:
 
-- A withdrawal cannot be made if it exceeds the account balance.
+* It has a **deposit limit** — deposits can only be made up to the account’s maximum balance (for example: €22,950 for a Livret A)
+* It **cannot have an authorized overdraft**
 
-__
+---
 
-### Feature 2: Overdraft
+### 📄 Feature 4: Account Statement
 
-We want to implement an authorized overdraft system for bank accounts.
-The following business rule must be implemented:
+A **monthly statement** must be generated for each account.
+This statement must display the following information:
 
-__
+* The **account type** (Current Account or Savings Account)
+* The **account balance** at the date the statement is issued
+* The **list of transactions** made during the month, **sorted by date in descending order**
 
-- If an account has an overdraft authorization, a withdrawal that exceeds the account balance is allowed, provided the
-  final balance does not exceed the overdraft limit.
+---
 
-### Feature 3: Savings Account
+## 🧱 Target Architecture
 
-We want to implement a savings account.
+The application should follow the principles of **Hexagonal Architecture**:
 
-A savings account is a bank account that:
+* The **domain** contains the pure business logic
+* The **ports** define the interfaces used to interact with the domain
+* The **adapters** implement these interfaces (e.g., REST API, persistence layer, etc.)
 
-- Has a deposit ceiling: Money can only be deposited up to the account's ceiling (e.g., €22,950 for a Livret A).
-- Cannot have an overdraft authorization.
+---
 
-__
+![Hexagonal Architecture](./assets/hexa-schema.png)
 
-### Feature 4: Account Statement
-
-We want to implement a monthly account statement feature (rolling month) for account transactions.
-
-The statement must show:
-
-- The account type (Savings or Current Account).
-- The account balance as of the statement date.
-- The list of transactions on the account, sorted by date in reverse chronological order.
-
-## Good luck!
-
-![hexagonal architecture](./assets/hexa-schema.png)
