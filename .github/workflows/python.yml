@@ -46,8 +46,10 @@ jobs:
         uses: actions/cache@v3
         id: cache
         with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ steps.cache-key.outputs.key }}
+          path: |
+            .venv
+            ~/.cache/pypoetry
+          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
           restore-keys: |
             venv-${{ runner.os }}-
 
@@ -55,7 +57,11 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: poetry install --no-interaction --no-ansi
 
+      - name: List directory contents (debug)
+        run: ls -la
+
       - name: Upload venv artifact
+        if: steps.cache.outputs.cache-hit != 'true'
         uses: actions/upload-artifact@v4
         with:
           name: python-venv
@@ -88,7 +94,8 @@ jobs:
           name: python-venv
           path: .venv/
 
-      - name: Install dependencies (if cache missed)
+      - name: Install dependencies (if artifact download failed)
+        if: failure()
         run: poetry install --no-interaction --no-ansi
 
       - name: Create reports directory
@@ -104,14 +111,6 @@ jobs:
         with:
           name: test-results
           path: reports/
-          retention-days: 30
-
-      - name: Upload JUnit test results
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: junit-results
-          path: reports/junit.xml
           retention-days: 30
 
       - name: Publish Test Results
