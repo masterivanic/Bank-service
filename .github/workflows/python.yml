@@ -15,6 +15,7 @@ env:
 permissions:
   contents: read
   checks: write
+  pull-requests: write
 
 jobs:
   test:
@@ -56,7 +57,7 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          poetry run pytest --junitxml=reports/junit.xml --cov=./ --cov-report=xml:reports/coverage.xml
+          poetry run pytest --junitxml=reports/junit.xml --cov=./ --cov-report=xml:reports/coverage.xml --cov-report=html:reports/coverage-html
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
@@ -73,3 +74,20 @@ jobs:
           name: Pytest Tests
           path: reports/junit.xml
           reporter: java-junit
+
+      - name: Extract coverage percentage
+        id: coverage
+        run: |
+          COVERAGE=$(python -c "import xml.etree.ElementTree as ET; tree = ET.parse('reports/coverage.xml'); root = tree.getroot(); print(round(float(root.attrib['line-rate']) * 100, 2))")
+          echo "coverage=$COVERAGE" >> $GITHUB_OUTPUT
+          echo "Coverage: $COVERAGE%"
+
+      - name: Update Coverage Badge
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: ${{ vars.GIST_ID }}
+          filename: coverage.json
+          label: Coverage
+          message: ${{ steps.coverage.outputs.coverage }}%
+          color: ${{ fromJSON(steps.coverage.outputs.coverage) >= 80 && 'green' || fromJSON(steps.coverage.outputs.coverage) >= 60 && 'yellow' || 'red' }}

@@ -1,3 +1,6 @@
+![CI Tests](https://github.com/masterivanic/Bank-service/actions/workflows/python.yml/badge.svg)
+![Coverage](https://img.shields.io/badge/Coverage-0%25-red)
+
 # 💰 **Bank Account Kata** 💰
 
 ### 🧩 Feature 1 : Le compte bancaire
