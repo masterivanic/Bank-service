@@ -1,5 +1,5 @@
 ![CI Tests](https://github.com/masterivanic/Bank-service/actions/workflows/python.yml/badge.svg)
-![Coverage](https://img.shields.io/badge/Coverage-0%25-red)
+![Coverage](https://img.shields.io/badge/dynamic/json?url=https://gist.githubusercontent.com/masterivanic/080dc9fbb8e45d7cfa7d596572e9bf62/raw/coverage.json&query=message&label=Coverage&color=blue)
 
 # 💰 **Bank Account Kata** 💰
 
