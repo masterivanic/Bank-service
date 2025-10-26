@@ -163,3 +163,5 @@ staticfiles/
 .pytest_cache
 
 reports/
+
+bin/
