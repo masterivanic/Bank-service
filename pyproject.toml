@@ -19,7 +19,7 @@ django-env-overrides = "^0.1.0"
 
 
 [tool.poetry.group.dev.dependencies]
-mypy = "^1.19.0"
+mypy = "^1.19.1"
 pytest = "^9.0.2"
 django-stubs = "^5.2.8"
 factory-boy = "^3.3.3"
