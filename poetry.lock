@@ -203,14 +203,14 @@ yaml = ["pyyaml"]
 
 [[package]]
 name = "django"
-version = "5.2.9"
+version = "5.2.10"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
 optional = false
 python-versions = ">=3.10"
 groups = ["main", "dev"]
 files = [
-    {file = "django-5.2.9-py3-none-any.whl", hash = "sha256:3a4ea88a70370557ab1930b332fd2887a9f48654261cdffda663fef5976bb00a"},
-    {file = "django-5.2.9.tar.gz", hash = "sha256:16b5ccfc5e8c27e6c0561af551d2ea32852d7352c67d452ae3e76b4f6b2ca495"},
+    {file = "django-5.2.10-py3-none-any.whl", hash = "sha256:cf85067a64250c95d5f9067b056c5eaa80591929f7e16fbcd997746e40d6c45c"},
+    {file = "django-5.2.10.tar.gz", hash = "sha256:74df100784c288c50a2b5cad59631d71214f40f72051d5af3fdf220c20bdbbbe"},
 ]
 
 [package.dependencies]
@@ -1217,4 +1217,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.10"
-content-hash = "e9a3e9627f86bfb7187758f3faaac4dea5bf169022262f310d6bfff5ef1295b3"
+content-hash = "2b90467cf302ff2e33eaebefa70c2d69f96de7df2f100c8a09578f41529e5b3e"
