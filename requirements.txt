@@ -4,7 +4,7 @@ dependency-injector==4.48.3 ; python_version >= "3.10" and python_version < "4.0
 django-env-overrides==0.1.0 ; python_version >= "3.10" and python_version < "4.0"
 django-environ==0.12.0 ; python_version >= "3.10" and python_version < "4"
 django-extensions==4.1 ; python_version >= "3.10" and python_version < "4.0"
-django==5.2.9 ; python_version >= "3.10" and python_version < "4.0"
+django==5.2.10 ; python_version >= "3.10" and python_version < "4.0"
 djangorestframework==3.16.1 ; python_version >= "3.10" and python_version < "4.0"
 drf-spectacular==0.29.0 ; python_version >= "3.10" and python_version < "4.0"
 gunicorn==23.0.0 ; python_version >= "3.10" and python_version < "4.0"
