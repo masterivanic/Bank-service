@@ -8,12 +8,12 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 attrs = "^25.4.0"
-django = "^5.2.10"
+django = "^5.2.11"
 djangorestframework = "^3.16.1"
 drf-spectacular = "^0.29.0"
 dependency-injector = "^4.48.3"
 django-extensions = "^4.1"
-gunicorn = "^24.1.1"
+gunicorn = "^25.1.0"
 psycopg2-binary = "^2.9.11"
 django-env-overrides = "^0.1.0"
 
@@ -23,7 +23,7 @@ mypy = "^1.19.1"
 pytest = "^9.0.2"
 django-stubs = "^5.2.9"
 factory-boy = "^3.3.3"
-pytest-django = "^4.11.1"
+pytest-django = "^4.12.0"
 pytest-cov = "^7.0.0"
 
 [build-system]
